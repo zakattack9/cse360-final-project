@@ -1,5 +1,5 @@
 ## CSE360 Group Project
-All code should be branched off of `main` and merged into `main` through a PR
+All code should be branched off of `master` and merged into `master` through a PR
 
 ### Tasks
 
