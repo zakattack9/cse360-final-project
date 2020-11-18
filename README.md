@@ -8,24 +8,24 @@
 - JFreeChart
 
 ### Desired Workflow
-1. go to the projects board and pick a task from the "To Do" column
-2. assign yourself to the task by clicking on the task and adding yourself under "Assignees"
-3. branch off of `master` branch or another related branch
-4. develop code as defined in the task description
-5. after testing that the code works, push up code and ready the branch for merge
-6. create a pull request (PR) for your branch into another branch
-7. write a short description of what code changes the PR contains
-8. ensure that your merge branch is up to date with its base branch to prevent merge conflicts
-9. open the PR and ping the Slack to channel to let others know to review/approve the PR
-10. once required approvals have been granted, merge code into base branch
-11. repeat from step 1
+1. Go to the projects board and pick a task from the "To Do" column
+2. Assign yourself to the task by clicking on the task and adding yourself under "Assignees"
+3. Branch off of `master` branch or another related branch
+4. Develop code as defined in the task description
+5. After testing that the code works, push up code and ready the branch for merge
+6. Create a pull request (PR) for your branch into another branch
+7. Write a short description of what code changes the PR contains
+8. Ensure that your merge branch is up to date with its base branch to prevent merge conflicts
+9. Open the PR and ping the Slack to channel to let others know to review/approve the PR
+10. Once required approvals have been granted, merge code into base branch
+11. Repeat from step 1
 
 ### Things to Note
 - All code should be branched off of `master` or a subbranch and later merged back into `master` through a PR
-- read through the description of the task carefully to ensure that all things being requested are implemented; ping Slack channel for questions
-- please do step 8 of the "Desired Workflow" it will save a lot of headache down the road, if you are unsure of what this means read [here](https://github.com/zakattack9/git-branching-merging)
-- when approving a PR, actually read through the changes that were made and add comments if necessary to start discussions on possible code errors and implementation problems
-- only source code should be pushed to the repo, extra files should be added to the `.gitignore` or not staged for commit
+- Read through the description of the task carefully to ensure that all things being requested are implemented; ping Slack channel for questions
+- Please do step 8 of the "Desired Workflow" it will save a lot of headache down the road, if you are unsure of what this means read [here](https://github.com/zakattack9/git-branching-merging)
+- When approving a PR, actually read through the changes that were made and add comments if necessary to start discussions on possible code errors and implementation problems
+- Only source code should be pushed to the repo, extra files should be added to the `.gitignore` or not staged for commit
 
 ### Need to Submit
 - Java source code
