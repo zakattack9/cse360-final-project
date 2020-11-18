@@ -1,5 +1,4 @@
 ## CSE360 Group Project
-All code should be branched off of `master` and merged into `master` through a PR
 
 ### [Project Board](https://github.com/zakattack9/cse360-final-project/projects/1)
 
@@ -22,6 +21,7 @@ All code should be branched off of `master` and merged into `master` through a P
 11. repeat from step 1
 
 ### Things to Note
+- All code should be branched off of `master` or a subbranch and later merged back into `master` through a PR
 - read through the description of the task carefully to ensure that all things being requested are implemented; ping Slack channel for questions
 - please do step 8 of the "Desired Workflow" it will save a lot of headache down the road, if you are unsure of what this means read [here](https://github.com/zakattack9/git-branching-merging)
 - when approving a PR, actually read through the changes that were made and add comments if necessary to start discussions on possible code errors and implementation problems
@@ -39,4 +39,4 @@ All code should be branched off of `master` and merged into `master` through a P
 
 ### Implementation Diagram
 ![diagram](./diagram.png?raw=true "Implementation Diagram")
-- as of now, we will not be creating the `Student` decorator classes
+As of now, we will not be creating the `Student` decorator classes
