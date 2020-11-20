@@ -23,7 +23,7 @@
 ### Things to Note
 - All code should be branched off of `master` or a subbranch and later merged back into `master` through a PR
 - Read through the description of the task carefully to ensure that all things being requested are implemented; ping Slack channel for questions
-- Please do step 8 of the "Desired Workflow" it will save a lot of headache down the road, if you are unsure of what this means read [here](https://github.com/zakattack9/git-branching-merging)
+- Step 8 of the "Desired Workflow" is automatically enforced by the repository and will prevent any direct pushes to `master` without a PR; if you are unsure of what step 8 is asking, read [here](https://github.com/zakattack9/git-branching-merging)
 - When approving a PR, actually read through the changes that were made and add comments if necessary to start discussions on possible code errors and implementation problems
 - Only source code should be pushed to the repo, extra files should be added to the `.gitignore` or not staged for commit
 
