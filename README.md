@@ -18,7 +18,8 @@
 8. Ensure that your merge branch is up to date with its base branch to prevent merge conflicts
 9. Open the PR and ping the Slack to channel to let others know to review/approve the PR
 10. Once required approvals have been granted, merge code into base branch
-11. Repeat from step 1
+11. Close the issue/task in the project board (it will automatically move to the closed column)
+12. Repeat from step 1
 
 ### Things to Note
 - All code should be branched off of `master` or a subbranch and later merged back into `master` through a PR
