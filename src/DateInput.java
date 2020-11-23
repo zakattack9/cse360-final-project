@@ -18,6 +18,12 @@ public class DateInput extends JFormattedTextField {
 
   }
 
+  public String getText() {
+    String val = (String) dateInput.getValue();
+    System.out.println("DATE INPUT VAL: " + val);
+    return val;
+  }
+
   public JFormattedTextField getDateInput() {
     return dateInput;
   }

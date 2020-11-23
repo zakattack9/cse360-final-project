@@ -1,4 +1,7 @@
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Map;
 import java.util.HashMap;
 
@@ -7,19 +10,11 @@ public class ModalBuilder {
   private final int MODAL_HEIGHT = (int) (Main.WINDOW_HEIGHT * 0.5);
 
   private JDialog modal;
-  private JPanel content;
-  private GroupLayout layout;
   private Map<JLabel, JTextField> inputMap;
 
   public ModalBuilder(JFrame frame, String name) {
     modal = new JDialog(frame, name, true);
-    content = new JPanel();
     inputMap = new HashMap();
-
-    layout = new GroupLayout(content);
-    layout.setAutoCreateGaps(true);
-    layout.setAutoCreateContainerGaps(true);
-    content.setLayout(layout);
 
     modal.setSize(MODAL_WIDTH, MODAL_HEIGHT);
   }
@@ -37,45 +32,70 @@ public class ModalBuilder {
     inputMap.put(inputLabel, textField);
   }
 
-  private void addInputsToLayout() {
-    GroupLayout.SequentialGroup horizontal = layout.createSequentialGroup();
-    GroupLayout.ParallelGroup labelGroup = layout.createParallelGroup(GroupLayout.Alignment.LEADING);
-    GroupLayout.ParallelGroup textfieldGroup = layout.createParallelGroup(GroupLayout.Alignment.LEADING);
+  private JPanel createInputsPanel() {
+    JPanel content = new JPanel();
+    GroupLayout contentLayout = new GroupLayout(content);
+    
+    GroupLayout.SequentialGroup horizontal = contentLayout.createSequentialGroup();
+    GroupLayout.ParallelGroup labelGroup = contentLayout.createParallelGroup(GroupLayout.Alignment.LEADING);
+    GroupLayout.ParallelGroup textFieldGroup = contentLayout.createParallelGroup(GroupLayout.Alignment.LEADING);
     inputMap.keySet().stream().forEach(label -> labelGroup.addComponent(label));
-    inputMap.values().stream().forEach(textfield -> textfieldGroup.addComponent(textfield));
-    layout.setHorizontalGroup(horizontal.addGroup(labelGroup).addGroup(textfieldGroup));
+    inputMap.values().stream().forEach(textField -> textFieldGroup.addComponent(textField));
+    horizontal.addGroup(labelGroup).addGroup(textFieldGroup);
 
-    GroupLayout.SequentialGroup vertical = layout.createSequentialGroup();
+    GroupLayout.SequentialGroup vertical = contentLayout.createSequentialGroup();
     inputMap.entrySet().stream().forEach(entry -> {
-      vertical.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+      vertical.addGroup(contentLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
           .addComponent(entry.getKey())
           .addComponent(entry.getValue()));
     });
-    layout.setVerticalGroup(vertical);
+    
+    contentLayout.setHorizontalGroup(horizontal);
+    contentLayout.setVerticalGroup(vertical);
+    contentLayout.setAutoCreateGaps(true);
+    contentLayout.setAutoCreateContainerGaps(true);
+    content.setLayout(contentLayout);
+    return content;
   }
 
-  // adds cancel and submit buttons to bottom of modal
-  private void addCancelSubmit() {
+  private JPanel createButtonsPanel() {
+    JPanel buttons = new JPanel(new BorderLayout());
     JButton cancelBtn = createCancelBtn();
     JButton submitBtn = createSubmitBtn();
-    // link event listener to submit button
+
+    buttons.add(cancelBtn, BorderLayout.WEST);
+    buttons.add(submitBtn, BorderLayout.EAST);
+    return buttons;
   }
 
   private JButton createCancelBtn() {
-    JButton cancelBtn = new JButton();
+    JButton cancelBtn = new JButton("Cancel");
+    // add event listener
     return cancelBtn;
   }
 
   private JButton createSubmitBtn() {
-    JButton submitBtn = new JButton();
-    // loop through inputMap and get textfield values when submit btn is clicked
+    JButton submitBtn = new JButton("Submit");
+    submitBtn.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        // loop through inputMap and get textfield values when submit btn is clicked
+        inputMap.values().stream().forEach(textField -> System.out.println(textField.getText()));
+      }
+    });
     return submitBtn;
   }
 
+  private void addToModal(JPanel content, JPanel buttons) {
+    JPanel layout = new JPanel(new BorderLayout());
+    layout.add(content, BorderLayout.NORTH);
+    layout.add(buttons, BorderLayout.SOUTH);
+    modal.add(layout);
+  }
+
   public JDialog getModal() {
-    addInputsToLayout();
-    addCancelSubmit();
-    modal.add(content);
+    JPanel content = createInputsPanel();
+    JPanel buttons = createButtonsPanel();
+    addToModal(content, buttons);
     return modal;
   }
 }
