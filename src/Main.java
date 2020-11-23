@@ -9,13 +9,11 @@ public class Main extends JFrame {
     this.setJMenuBar(menuBar.getMenuBar());
 
     ModalBuilder addAttendanceModalBuilder = new ModalBuilder(this, "Add Attendance");
-    addAttendanceModalBuilder.addInput("Testing Plz Work");
+    addAttendanceModalBuilder.addInput("Testing");
     addAttendanceModalBuilder.addInput("Date", new DateInput());
     addAttendanceModalBuilder.getModal().setVisible(true);
 
     ModalBuilder loadRosterModalBuilder = new ModalBuilder(this, "Load a Roster");
-
-    this.add(new DateInput());
 
     // configure JFrame window properties
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

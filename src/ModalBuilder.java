@@ -49,16 +49,21 @@ public class ModalBuilder {
     inputMap.entrySet().stream().forEach(entry -> {
       vertical.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
           .addComponent(entry.getKey())
-          .addComponent(entry.getValue())
-      );
+          .addComponent(entry.getValue()));
     });
     layout.setVerticalGroup(vertical);
   }
 
   // adds cancel and submit buttons to bottom of modal
   private void addCancelSubmit() {
+    JButton cancelBtn = createCancelBtn();
     JButton submitBtn = createSubmitBtn();
     // link event listener to submit button
+  }
+
+  private JButton createCancelBtn() {
+    JButton cancelBtn = new JButton();
+    return cancelBtn;
   }
 
   private JButton createSubmitBtn() {
