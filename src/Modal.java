@@ -5,18 +5,16 @@ import java.awt.event.ActionListener;
 import java.util.Map;
 import java.util.HashMap;
 
-public class ModalBuilder {
+public class Modal extends JDialog {
   private final int MODAL_WIDTH = (int) (Main.WINDOW_WIDTH * 0.5);
   private final int MODAL_HEIGHT = (int) (Main.WINDOW_HEIGHT * 0.5);
 
-  private JDialog modal;
   private Map<JLabel, JTextField> inputMap;
 
-  public ModalBuilder(JFrame frame, String name) {
-    modal = new JDialog(frame, name, true);
+  public Modal(JFrame frame, String name) {
+    super(frame, name, true);
+    this.setSize(MODAL_WIDTH, MODAL_HEIGHT);
     inputMap = new HashMap();
-
-    modal.setSize(MODAL_WIDTH, MODAL_HEIGHT);
   }
 
   // adds input with normal JTextField
@@ -26,12 +24,32 @@ public class ModalBuilder {
     inputMap.put(inputLabel, textField);
   }
 
-  // adds input with passed in textField (e.g. DateInput)
+  // adds input with passed in JTextField (e.g. DateInput)
   public void addInput(String label, JTextField textField) {
     JLabel inputLabel = new JLabel(label);
     inputMap.put(inputLabel, textField);
   }
 
+  public void showModal() {
+    initModal();
+    this.setVisible(true);
+  }
+
+  public void hideModal() {
+    this.setVisible(false);
+  }
+
+  // initializes all content in modal
+  private void initModal() {
+    JPanel layout = new JPanel(new BorderLayout());
+    JPanel content = createInputsPanel();
+    JPanel buttons = createButtonsPanel();
+    layout.add(content, BorderLayout.NORTH);
+    layout.add(buttons, BorderLayout.SOUTH);
+    this.add(layout);
+  }
+
+  // creates JPanel with all added inputs
   private JPanel createInputsPanel() {
     JPanel content = new JPanel();
     GroupLayout contentLayout = new GroupLayout(content);
@@ -58,6 +76,7 @@ public class ModalBuilder {
     return content;
   }
 
+  // creates JPanel with cancel and submit buttons
   private JPanel createButtonsPanel() {
     JPanel buttons = new JPanel(new BorderLayout());
     JButton cancelBtn = createCancelBtn();
@@ -70,7 +89,9 @@ public class ModalBuilder {
 
   private JButton createCancelBtn() {
     JButton cancelBtn = new JButton("Cancel");
-    // add event listener
+    cancelBtn.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) { hideModal(); }
+    });
     return cancelBtn;
   }
 
@@ -83,19 +104,5 @@ public class ModalBuilder {
       }
     });
     return submitBtn;
-  }
-
-  private void addToModal(JPanel content, JPanel buttons) {
-    JPanel layout = new JPanel(new BorderLayout());
-    layout.add(content, BorderLayout.NORTH);
-    layout.add(buttons, BorderLayout.SOUTH);
-    modal.add(layout);
-  }
-
-  public JDialog getModal() {
-    JPanel content = createInputsPanel();
-    JPanel buttons = createButtonsPanel();
-    addToModal(content, buttons);
-    return modal;
   }
 }

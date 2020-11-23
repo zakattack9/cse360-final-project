@@ -1,10 +1,7 @@
 import javax.swing.*;
 
-public class MenuBar {
-  private JMenuBar menuBar;
-
+public class MenuBar extends JMenuBar {
   public MenuBar() {
-    menuBar = new JMenuBar();
     JMenu file = new JMenu("File");
     JMenu about = new JMenu("About");
 
@@ -18,9 +15,7 @@ public class MenuBar {
     file.add(save);
     file.add(plotData);
 
-    menuBar.add(file);
-    menuBar.add(about);
+    this.add(file);
+    this.add(about);
   }
-
-  public JMenuBar getMenuBar() { return menuBar; }
 }
