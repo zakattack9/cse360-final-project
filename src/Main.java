@@ -9,15 +9,17 @@ public class Main extends JFrame {
     MenuBar menuBar = new MenuBar();
     this.setJMenuBar(menuBar);
 
+    // BEGIN DELETE FROM HERE (leaving for reference/testing)
     InputModal addAttendanceInputModal = new InputModal(this, "Add Attendance");
     addAttendanceInputModal.addInput("Testing");
 
-    DateInput dateInput = new DateInput("MM/dd/yy");
+    DateInput dateInput = new DateInput();
     addAttendanceInputModal.addInput("Date", dateInput, dateInput.getErrorMessage());
-    Map<String, String> test = addAttendanceInputModal.showModal();
-    System.out.println(test);
+    Map<String, String> input = addAttendanceInputModal.showModal();
+    System.out.println(input);
 
     InputModal loadRosterInputModal = new InputModal(this, "Load a Roster");
+    // END DELETE FROM HERE
 
     // configure JFrame window properties
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

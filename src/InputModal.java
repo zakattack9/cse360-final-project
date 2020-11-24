@@ -9,14 +9,12 @@ public class InputModal extends JDialog {
 
   private Map<JLabel, JTextField> inputMap;
   private Map<JLabel, String> errMsgMap;
-  private Map<String, String> valueMap;
 
   public InputModal(JFrame frame, String name) {
     super(frame, name, true);
     this.setSize(MODAL_WIDTH, MODAL_HEIGHT);
     inputMap = new HashMap<>();
     errMsgMap = new HashMap<>();
-    valueMap = new HashMap<>();
   }
 
   // adds input with normal JTextField
@@ -38,7 +36,7 @@ public class InputModal extends JDialog {
   public Map<String, String> showModal() {
     initModal();
     this.setVisible(true);
-    return valueMap;
+    return generateValueMap();
   }
 
   public void hideModal() {
@@ -103,22 +101,24 @@ public class InputModal extends JDialog {
     JButton submitBtn = new JButton("Submit");
     submitBtn.addActionListener(e -> {
       String errorMsg = validateInput();
-      if (errorMsg != "") {
-        JOptionPane.showMessageDialog(this, errorMsg);
-      } else {
-        inputMap.entrySet().stream().forEach(entry -> {
-          valueMap.put(entry.getKey().getText(), entry.getValue().getText());
-        });
-        hideModal();
-      }
+      if (!errorMsg.equals("")) JOptionPane.showMessageDialog(this, errorMsg, "Error", JOptionPane.ERROR_MESSAGE);
+      else hideModal();
     });
     return submitBtn;
+  }
+
+  private Map<String, String> generateValueMap() {
+    Map<String, String> valueMap = new HashMap<>();
+    inputMap.entrySet().stream().forEach(entry -> {
+      valueMap.put(entry.getKey().getText(), entry.getValue().getText().trim());
+    });
+    return valueMap;
   }
 
   private String validateInput() {
     String errorMsg = "";
     for (Map.Entry<JLabel, JTextField> entry : inputMap.entrySet()) {
-      if (entry.getValue().getText().equals("")) errorMsg += errMsgMap.get(entry.getKey()) + "\n";
+      if (entry.getValue().getText().trim().equals("")) errorMsg += errMsgMap.get(entry.getKey()) + "\n";
     }
     return errorMsg;
   }

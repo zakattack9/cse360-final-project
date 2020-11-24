@@ -4,11 +4,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class DateInput extends JFormattedTextField {
-  SimpleDateFormat dateFormat;
+  SimpleDateFormat dateFormat1;
+  SimpleDateFormat dateFormat2;
 
-  public DateInput(String format) {
-    dateFormat = new SimpleDateFormat(format);
-    dateFormat.setLenient(false);
+  public DateInput() {
+    dateFormat1 = new SimpleDateFormat("MMM dd");
+    dateFormat2 = new SimpleDateFormat("MMM d");
   }
 
   @Override
@@ -21,13 +22,15 @@ public class DateInput extends JFormattedTextField {
   public Object getValue() {
     String input = super.getText();
     try {
-      Date date = dateFormat.parse(input);
-      if (!dateFormat.format(date).equals(input)) return "";
+      Date date1 = dateFormat1.parse(input);
+      Date date2 = dateFormat2.parse(input);
+      if (!dateFormat1.format(date1).equals(input) &&
+          !dateFormat2.format(date2).equals(input)) return "";
     } catch (ParseException ex) { return ""; }
     return input;
   }
 
   public String getErrorMessage() {
-    return "Please enter a valid date in the format of MM/DD/YYYY";
+    return "Please enter a valid date in the format of MMM dd (e.g. Nov 10, Jan 2)";
   }
 }
