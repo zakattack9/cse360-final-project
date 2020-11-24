@@ -5,7 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class DateInput extends JFormattedTextField {
+public class DateInput extends JTextField {
   SimpleDateFormat dateFormat1;
   SimpleDateFormat dateFormat2;
 

@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class InputModal extends JDialog {
   private final int MODAL_WIDTH = (int) (Main.WINDOW_WIDTH * 0.5);
@@ -17,7 +18,8 @@ public class InputModal extends JDialog {
   public InputModal(JFrame frame, String name) {
     super(frame, name, true);
     this.setSize(MODAL_WIDTH, MODAL_HEIGHT);
-    inputMap = new HashMap<>();
+    this.setLocationRelativeTo(frame);
+    inputMap = new LinkedHashMap<>();
     errMsgMap = new HashMap<>();
   }
 

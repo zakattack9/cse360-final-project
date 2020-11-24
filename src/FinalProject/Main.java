@@ -3,6 +3,9 @@ package FinalProject;
 import FinalProject.Components.InputModal;
 import FinalProject.Components.MenuBar;
 import FinalProject.Controllers.AttendanceController;
+import FinalProject.Controllers.PlotController;
+import FinalProject.Controllers.RosterController;
+import FinalProject.Controllers.SaveController;
 import FinalProject.Inputs.DateInput;
 
 import javax.swing.*;
@@ -14,24 +17,19 @@ public class Main extends JFrame {
 
   public Main() {
     MenuBar menuBar = new MenuBar();
+    this.setJMenuBar(menuBar);
 
     AttendanceController attendanceController = new AttendanceController(this);
     menuBar.addAttendanceController(attendanceController);
 
-    // BEGIN DELETE FROM HERE (leaving for reference/testing)
-    InputModal addAttendanceInputModal = new InputModal(this, "Add Attendance");
-    addAttendanceInputModal.addInput("File Path");
+    RosterController rosterController = new RosterController(this);
+    menuBar.addRosterController(rosterController);
 
-    DateInput dateInput = new DateInput();
-    addAttendanceInputModal.addInput("Date", dateInput, dateInput.getErrorMessage());
-    Map<String, String> input = addAttendanceInputModal.showModal();
-    System.out.println(input);
+    SaveController saveController = new SaveController();
+    menuBar.addSaveController(saveController);
 
-    InputModal loadRosterInputModal = new InputModal(this, "Load a Roster");
-    // END DELETE FROM HERE
-
-
-    this.setJMenuBar(menuBar);
+    PlotController plotController = new PlotController();
+    menuBar.addPlotController(plotController);
 
     // configure JFrame window properties
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
