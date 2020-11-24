@@ -15,12 +15,6 @@ public class DateInput extends JFormattedTextField {
   @Override
   public String getText() {
     String input = super.getText();
-    return getValue().equals("") ? "" : input;
-  }
-
-  @Override
-  public Object getValue() {
-    String input = super.getText();
     try {
       Date date1 = dateFormat1.parse(input);
       Date date2 = dateFormat2.parse(input);

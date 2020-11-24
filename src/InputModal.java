@@ -27,6 +27,8 @@ public class InputModal extends JDialog {
   }
 
   // adds input with passed in JTextField (e.g. DateInput)
+  // .getText() should return "" if input is invalid
+  // returning "" will display its respective error message
   public void addInput(String label, JTextField textField, String errMessage) {
     JLabel inputLabel = new JLabel(label);
     inputMap.put(inputLabel, textField);
