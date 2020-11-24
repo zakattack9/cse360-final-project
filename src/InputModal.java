@@ -5,34 +5,41 @@ import java.awt.event.ActionListener;
 import java.util.Map;
 import java.util.HashMap;
 
-public class Modal extends JDialog {
+public class InputModal extends JDialog {
   private final int MODAL_WIDTH = (int) (Main.WINDOW_WIDTH * 0.5);
   private final int MODAL_HEIGHT = (int) (Main.WINDOW_HEIGHT * 0.5);
 
   private Map<JLabel, JTextField> inputMap;
+  private Map<JLabel, String> errMsgMap;
+  private Map<String, String> valueMap;
 
-  public Modal(JFrame frame, String name) {
+  public InputModal(JFrame frame, String name) {
     super(frame, name, true);
     this.setSize(MODAL_WIDTH, MODAL_HEIGHT);
     inputMap = new HashMap();
+    errMsgMap = new HashMap();
   }
 
   // adds input with normal JTextField
   public void addInput(String label) {
     JLabel inputLabel = new JLabel(label);
     JTextField textField = new JTextField();
+    String errMessage = "Please enter a value for \"" + inputLabel.getText() + "\"";
     inputMap.put(inputLabel, textField);
+    errMsgMap.put(inputLabel, errMessage);
   }
 
   // adds input with passed in JTextField (e.g. DateInput)
-  public void addInput(String label, JTextField textField) {
+  public void addInput(String label, JTextField textField, String errMessage) {
     JLabel inputLabel = new JLabel(label);
     inputMap.put(inputLabel, textField);
+    errMsgMap.put(inputLabel, errMessage);
   }
 
-  public void showModal() {
+  public String showModal() {
     initModal();
     this.setVisible(true);
+    return "TEST";
   }
 
   public void hideModal() {
@@ -89,20 +96,33 @@ public class Modal extends JDialog {
 
   private JButton createCancelBtn() {
     JButton cancelBtn = new JButton("Cancel");
-    cancelBtn.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) { hideModal(); }
-    });
+    cancelBtn.addActionListener(e -> hideModal());
     return cancelBtn;
   }
 
   private JButton createSubmitBtn() {
     JButton submitBtn = new JButton("Submit");
-    submitBtn.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
-        // loop through inputMap and get textfield values when submit btn is clicked
-        inputMap.values().stream().forEach(textField -> System.out.println(textField.getText()));
+    submitBtn.addActionListener(e -> {
+      System.out.println("Called EVENT");
+      String errorMsg = validateInput();
+      if (errorMsg != "") {
+        JOptionPane.showMessageDialog(this, errorMsg);
+      } else {
+//        inputMap.entrySet().stream().forEach(entry -> {
+//          valueMap.put(entry.getKey().getText(), entry.getValue().getText());
+//        });
+//        hideModal();
       }
     });
     return submitBtn;
+  }
+
+  private String validateInput() {
+    String errorMsg = "";
+    for (Map.Entry<JLabel, JTextField> entry : inputMap.entrySet()) {
+      System.out.println("GET TEXT " + entry.getKey().getText() + " " + entry.getValue().getText());
+      if (entry.getValue().getText().equals("")) errorMsg += errMsgMap.get(entry.getKey()) + "\n";
+    }
+    return errorMsg;
   }
 }

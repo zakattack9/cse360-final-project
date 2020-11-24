@@ -8,12 +8,15 @@ public class Main extends JFrame {
     MenuBar menuBar = new MenuBar();
     this.setJMenuBar(menuBar);
 
-    Modal addAttendanceModal = new Modal(this, "Add Attendance");
-    addAttendanceModal.addInput("Testing");
-    addAttendanceModal.addInput("Date", new DateInput());
-    addAttendanceModal.showModal();
+    InputModal addAttendanceInputModal = new InputModal(this, "Add Attendance");
+    addAttendanceInputModal.addInput("Testing");
 
-    Modal loadRosterModal = new Modal(this, "Load a Roster");
+    DateInput dateInput = new DateInput();
+    addAttendanceInputModal.addInput("Date", dateInput, dateInput.getErrorMessage());
+    String test = addAttendanceInputModal.showModal();
+    System.out.println(test);
+
+    InputModal loadRosterInputModal = new InputModal(this, "Load a Roster");
 
     // configure JFrame window properties
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
