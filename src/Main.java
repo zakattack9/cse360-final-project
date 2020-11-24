@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.util.Map;
 
 public class Main extends JFrame {
   public static final int WINDOW_WIDTH = 1300;
@@ -11,9 +12,9 @@ public class Main extends JFrame {
     InputModal addAttendanceInputModal = new InputModal(this, "Add Attendance");
     addAttendanceInputModal.addInput("Testing");
 
-    DateInput dateInput = new DateInput();
+    DateInput dateInput = new DateInput("MM/dd/yy");
     addAttendanceInputModal.addInput("Date", dateInput, dateInput.getErrorMessage());
-    String test = addAttendanceInputModal.showModal();
+    Map<String, String> test = addAttendanceInputModal.showModal();
     System.out.println(test);
 
     InputModal loadRosterInputModal = new InputModal(this, "Load a Roster");

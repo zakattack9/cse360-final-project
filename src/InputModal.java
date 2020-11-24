@@ -1,7 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Map;
 import java.util.HashMap;
 
@@ -16,8 +14,9 @@ public class InputModal extends JDialog {
   public InputModal(JFrame frame, String name) {
     super(frame, name, true);
     this.setSize(MODAL_WIDTH, MODAL_HEIGHT);
-    inputMap = new HashMap();
-    errMsgMap = new HashMap();
+    inputMap = new HashMap<>();
+    errMsgMap = new HashMap<>();
+    valueMap = new HashMap<>();
   }
 
   // adds input with normal JTextField
@@ -36,10 +35,10 @@ public class InputModal extends JDialog {
     errMsgMap.put(inputLabel, errMessage);
   }
 
-  public String showModal() {
+  public Map<String, String> showModal() {
     initModal();
     this.setVisible(true);
-    return "TEST";
+    return valueMap;
   }
 
   public void hideModal() {
@@ -103,15 +102,14 @@ public class InputModal extends JDialog {
   private JButton createSubmitBtn() {
     JButton submitBtn = new JButton("Submit");
     submitBtn.addActionListener(e -> {
-      System.out.println("Called EVENT");
       String errorMsg = validateInput();
       if (errorMsg != "") {
         JOptionPane.showMessageDialog(this, errorMsg);
       } else {
-//        inputMap.entrySet().stream().forEach(entry -> {
-//          valueMap.put(entry.getKey().getText(), entry.getValue().getText());
-//        });
-//        hideModal();
+        inputMap.entrySet().stream().forEach(entry -> {
+          valueMap.put(entry.getKey().getText(), entry.getValue().getText());
+        });
+        hideModal();
       }
     });
     return submitBtn;
@@ -120,7 +118,6 @@ public class InputModal extends JDialog {
   private String validateInput() {
     String errorMsg = "";
     for (Map.Entry<JLabel, JTextField> entry : inputMap.entrySet()) {
-      System.out.println("GET TEXT " + entry.getKey().getText() + " " + entry.getValue().getText());
       if (entry.getValue().getText().equals("")) errorMsg += errMsgMap.get(entry.getKey()) + "\n";
     }
     return errorMsg;
