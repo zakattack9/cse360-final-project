@@ -10,7 +10,7 @@ import java.util.LinkedHashMap;
 
 public class InputModal extends JDialog {
   private final int MODAL_WIDTH = (int) (Main.WINDOW_WIDTH * 0.5);
-  private final int MODAL_HEIGHT = (int) (Main.WINDOW_HEIGHT * 0.5);
+  private final int MODAL_HEIGHT = (int) (Main.WINDOW_HEIGHT * 0.3);
 
   private Map<JLabel, JTextField> inputMap;
   private Map<JLabel, String> errMsgMap;
