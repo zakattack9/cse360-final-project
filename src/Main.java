@@ -11,7 +11,7 @@ public class Main extends JFrame {
 
     // BEGIN DELETE FROM HERE (leaving for reference/testing)
     InputModal addAttendanceInputModal = new InputModal(this, "Add Attendance");
-    addAttendanceInputModal.addInput("Testing");
+    addAttendanceInputModal.addInput("File Path");
 
     DateInput dateInput = new DateInput();
     addAttendanceInputModal.addInput("Date", dateInput, dateInput.getErrorMessage());
