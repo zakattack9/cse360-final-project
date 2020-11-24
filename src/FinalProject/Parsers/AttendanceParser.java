@@ -21,11 +21,11 @@ public class AttendanceParser {
 
       String asurite = line.next();
       int time = parseToInteger(line.next());
-      addToDatabse(asurite, date, time);
+      addToDatabase(asurite, date, time);
     }
   }
 
-  private void addToDatabse(String asurite, String date, int time) {
+  private void addToDatabase(String asurite, String date, int time) {
     // access database through main
   }
 
