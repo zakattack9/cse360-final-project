@@ -1,3 +1,10 @@
+package FinalProject;
+
+import FinalProject.Components.InputModal;
+import FinalProject.Components.MenuBar;
+import FinalProject.Controllers.AttendanceController;
+import FinalProject.Inputs.DateInput;
+
 import javax.swing.*;
 import java.util.Map;
 
@@ -7,7 +14,9 @@ public class Main extends JFrame {
 
   public Main() {
     MenuBar menuBar = new MenuBar();
-    this.setJMenuBar(menuBar);
+
+    AttendanceController attendanceController = new AttendanceController(this);
+    menuBar.addAttendanceController(attendanceController);
 
     // BEGIN DELETE FROM HERE (leaving for reference/testing)
     InputModal addAttendanceInputModal = new InputModal(this, "Add Attendance");
@@ -20,6 +29,9 @@ public class Main extends JFrame {
 
     InputModal loadRosterInputModal = new InputModal(this, "Load a Roster");
     // END DELETE FROM HERE
+
+
+    this.setJMenuBar(menuBar);
 
     // configure JFrame window properties
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

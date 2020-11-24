@@ -1,3 +1,7 @@
+package FinalProject.Components;
+
+import FinalProject.Main;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.Map;
@@ -26,7 +30,7 @@ public class InputModal extends JDialog {
     errMsgMap.put(inputLabel, errMessage);
   }
 
-  // adds input with passed in JTextField (e.g. DateInput)
+  // adds input with passed in JTextField (e.g. FinalProject.Controllers.DateInput)
   // .getText() should return "" if input is invalid
   // returning "" will display its respective error message
   public void addInput(String label, JTextField textField, String errMessage) {
@@ -41,7 +45,7 @@ public class InputModal extends JDialog {
     return generateValueMap();
   }
 
-  public void hideModal() {
+  private void hideModal() {
     this.setVisible(false);
   }
 
