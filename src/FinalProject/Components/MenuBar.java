@@ -31,9 +31,7 @@ public class MenuBar extends JMenuBar {
     loadARoster.addActionListener(actionListener);
   }
 
-  public void addAttendanceController(ActionListener actionListener) {
-    addAttendance.addActionListener(actionListener);
-  }
+  public void addAttendanceController(ActionListener actionListener) { addAttendance.addActionListener(actionListener); }
 
   public void addSaveController(ActionListener actionListener) {
     save.addActionListener(actionListener);
