@@ -7,7 +7,6 @@ import java.awt.event.FocusListener;
 import java.io.File;
 
 public class FilePathInput extends JTextField {
-
   JFileChooser fileChooser;
   JFrame frame;
 

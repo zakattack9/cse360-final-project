@@ -3,12 +3,9 @@ package FinalProject.Parsers;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-public class AttendanceParser extends Parser {
-  String date;
-
-  public AttendanceParser(String filePath, String date) {
+public class RosterParser extends Parser {
+  public RosterParser(String filePath) {
     super(filePath);
-    this.date = date;
   }
 
   @Override
@@ -25,16 +22,20 @@ public class AttendanceParser extends Parser {
   @Override
   protected boolean parseLine(Scanner line) {
     try {
+      String id = line.next().trim();
+      String firstName = line.next().trim();
+      String lastName = line.next().trim();
+      String programPlan = line.next().trim();
+      String academicLevel = line.next().trim();
       String asurite = line.next().trim();
-      int time = Integer.parseInt(line.next().trim());
-      addToDatabase(asurite, this.date, time);
-    } catch (NoSuchElementException | NumberFormatException e) {
+      addToDatabase(id, firstName, lastName, programPlan, academicLevel, asurite);
+    } catch (NoSuchElementException e) {
       return false;
     }
     return true;
   }
 
-  private void addToDatabase(String asurite, String date, int time) {
+  private void addToDatabase(String id, String firstName, String lastName, String programPlan, String academicLevel, String asurite) {
     // access database through main
   }
 }
