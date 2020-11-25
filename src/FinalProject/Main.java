@@ -5,7 +5,6 @@ import FinalProject.Controllers.AttendanceController;
 import FinalProject.Controllers.PlotController;
 import FinalProject.Controllers.RosterController;
 import FinalProject.Controllers.SaveController;
-import FinalProject.Models.AttendanceDatabase;
 
 import javax.swing.*;
 
@@ -19,17 +18,6 @@ public class Main extends JFrame {
 
     AttendanceController attendanceController = new AttendanceController(this);
     menuBar.addAttendanceController(attendanceController);
-
-    AttendanceDatabase db = new AttendanceDatabase();
-
-    db.addEntry("1", "Nov 10", 10);
-    db.addEntry("2", "Nov 11", 10);
-    db.addEntry("3", "Nov 12", 10);
-    db.addEntry("4", "Nov 13", 10);
-    db.addEntry("1", "Nov 10", 10);
-    db.addEntry("2", "Nov 10", 10);
-
-    System.out.println(db.getData());
 
     RosterController rosterController = new RosterController(this);
     menuBar.addRosterController(rosterController);
