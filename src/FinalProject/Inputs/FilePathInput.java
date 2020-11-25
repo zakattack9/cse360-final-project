@@ -35,14 +35,10 @@ public class FilePathInput extends JTextField {
   private void addListener() {
     this.addFocusListener(new FocusListener() {
       @Override
-      public void focusGained(FocusEvent e) {
-        chooseFile();
-      }
+      public void focusGained(FocusEvent e) { chooseFile(); }
 
       @Override
-      public void focusLost(FocusEvent e) {
-        enableFocus();
-      }
+      public void focusLost(FocusEvent e) { enableFocus(); }
     });
   }
 

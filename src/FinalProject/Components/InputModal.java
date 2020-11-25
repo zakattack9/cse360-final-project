@@ -47,9 +47,7 @@ public class InputModal extends JDialog {
     return generateValueMap();
   }
 
-  private void hideModal() {
-    this.setVisible(false);
-  }
+  private void hideModal() { this.setVisible(false); }
 
   // initializes all content in modal
   private void initModal() {
