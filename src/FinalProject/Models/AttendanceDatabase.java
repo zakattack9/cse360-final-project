@@ -1,27 +1,30 @@
 package FinalProject.Models;
 
-import java.util.LinkedHashMap;
+import java.util.*;
 
 public class AttendanceDatabase {
-  LinkedHashMap<String, LinkedHashMap<String, String>> data; // key is asurite
-  LinkedHashMap<String, String> dates;
+  HashMap<String, Integer> asuriteRow;
+  LinkedHashMap<String, Integer> dateColumn;
+  List<List<String>> data;
 
   private static AttendanceDatabase attendanceDatabase;
 
   private AttendanceDatabase() {
-    data = new LinkedHashMap<>();
-    dates = new LinkedHashMap<>();
+    data = new ArrayList<>();
+    asuriteRow = new HashMap<>();
+    dateColumn = new LinkedHashMap<>();
   }
 
   public void addEntry(String asurite, String date, Integer time) {
-    updateDates(date);
-    if (data.get(asurite) != null) {
-      int currTime = parseToInt(data.get(asurite).get(date));
-      data.get(asurite).put(date, parseToString(currTime + time));
+    addAsuriteRow(asurite);
+    addDateColumn(date);
+
+    List<String> row = data.get(asuriteRow.get(asurite));
+    if (row != null) {
+      int currTime = parseToInt(row.get(dateColumn.get(date)));
+      row.set(dateColumn.get(date), parseToString(currTime + time));
     } else {
-      LinkedHashMap<String, String> map = new LinkedHashMap<>();
-      map.put(date, parseToString(time));
-      data.put(asurite, map);
+      row.set(dateColumn.get(date), parseToString(time));
     }
   }
 
@@ -31,23 +34,28 @@ public class AttendanceDatabase {
     return attendanceDatabase;
   }
 
-  public LinkedHashMap<String, LinkedHashMap<String, String>> getData() {
+  public List<List<String>> getData() {
     return data;
   }
 
-  // adds all inputted dates to each asurite map
-  private void updateDates(String date) {
-    dates.put(date, "0");
-    data.forEach((asurite, dateMap) -> data.put(asurite, mergeDates(dateMap)));
+  public List<String> getDates() {
+    return new ArrayList<>(dateColumn.keySet());
   }
 
-  // maintains order of dates added
-  private LinkedHashMap<String, String> mergeDates(LinkedHashMap<String, String> dateMap) {
-    LinkedHashMap<String, String> cloneDates = (LinkedHashMap<String, String>) dates.clone();
-    dateMap.forEach((date, time) ->
-      cloneDates.merge(date, time, (oldDate, newDate) ->
-        parseToInt(newDate) > 0 ? newDate : oldDate));
-    return cloneDates;
+  private void addAsuriteRow(String asurite) {
+    if (asuriteRow.get(asurite) == null) {
+      String row[] = new String[dateColumn.size()];
+      Arrays.fill(row, "0");
+      data.add(Arrays.asList(row));
+      asuriteRow.put(asurite, asuriteRow.size());
+    }
+  }
+
+  private void addDateColumn(String date) {
+    if (dateColumn.get(date) == null) {
+      data.forEach(list -> list.add("0"));
+      dateColumn.put(date, dateColumn.size());
+    }
   }
 
   private Integer parseToInt(String intString) {

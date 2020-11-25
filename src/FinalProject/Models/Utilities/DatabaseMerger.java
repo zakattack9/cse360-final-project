@@ -23,9 +23,11 @@ public class DatabaseMerger {
   }
 
   private void mergeDatabases() {
-    LinkedHashMap<String, LinkedHashMap<String, String>> attendanceData = attendanceDatabase.getData();
+//    LinkedHashMap<String, LinkedHashMap<String, String>> attendanceData = attendanceDatabase.getData();
     LinkedHashMap<String, LinkedHashMap<String, String>> rosterData = rosterDatabase.getData();
-    rosterData.forEach((asurite, dataMap) -> dataMap.putAll(attendanceData.get(asurite)));
+//    rosterData.forEach((asurite, dataMap) -> dataMap.putAll(attendanceData.get(asurite)));
     mergedDatabase = rosterData;
   }
+
+  // need to account for asurites not in attendance database
 }
