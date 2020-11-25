@@ -1,0 +1,59 @@
+package FinalProject.Models;
+import java.io.*;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+
+public class AttendanceDatabase{
+    LinkedHashMap<String, LinkedHashMap<String, Integer>> data;
+    LinkedHashMap<String,Integer> deep;
+    public AttendanceDatabase() {
+        data = new LinkedHashMap();
+        deep = new LinkedHashMap();
+    }
+//    public void addEntry(String asurite, String date, int time)
+//    {
+//        //asurite already exists but has not logged in on this date
+//        if(data.containsKey(asurite) && deep.containsKey(date) == false)
+//        {
+//            deep.put(date, time);
+//            data.replace(asurite, deep);
+//        }
+//        //asurite already exists and has already logged in on this date
+//        else if(data.containsKey(asurite) && deep.containsKey(date))
+//        {
+//            int sum = 0;
+//            sum = deep.get(date) + time;
+//            deep.replace(date, sum);
+//            data.replace(asurite, deep);
+//        }
+//        //asurite does not exist and has not logged in on this date
+//        else
+//        {
+//            deep.put(date, time);
+//            data.put(asurite, deep);
+//
+//        }
+//    }
+
+    public void addEntry(String asurite, String date, int time) {
+        if(data.get(asurite) != null) {
+            int currTime = data.get(asurite).get(date);
+            data.get(asurite).put(date, currTime + time);
+        } else {
+            LinkedHashMap<String, Integer> map = new LinkedHashMap();
+            map.put(date, time);
+            data.put(asurite, map);
+        }
+    }
+
+    public LinkedHashMap<String, LinkedHashMap<String, Integer>> getData()
+    {
+        return data;
+    }
+}
+
+
+
+
+

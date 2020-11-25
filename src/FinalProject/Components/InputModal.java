@@ -22,7 +22,7 @@ public class InputModal extends JDialog {
     inputMap = new LinkedHashMap<>();
     errMsgMap = new HashMap<>();
   }
-// test
+
   // adds input with normal JTextField
   public void addInput(String label) {
     JLabel inputLabel = new JLabel(label);
