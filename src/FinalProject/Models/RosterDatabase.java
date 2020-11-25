@@ -16,12 +16,12 @@ public class RosterDatabase {
       LinkedHashMap<String, String> map = new LinkedHashMap<>();
       data.put(asurite, map);
     }
-    data.get(asurite).put("id", id);
-    data.get(asurite).put("firstName", firstName);
-    data.get(asurite).put("lastName", lastName);
-    data.get(asurite).put("programPlan", programPlan);
-    data.get(asurite).put("academicLevel", academicLevel);
-    data.get(asurite).put("asurite", asurite);
+    data.get(asurite).put("ID", id);
+    data.get(asurite).put("First Name", firstName);
+    data.get(asurite).put("Last Name", lastName);
+    data.get(asurite).put("Program and Plan", programPlan);
+    data.get(asurite).put("Academic Level", academicLevel);
+    data.get(asurite).put("ASURITE", asurite);
   }
 
   // ensure thread-safety
