@@ -10,7 +10,7 @@ import java.util.LinkedHashMap;
 
 public class InputModal extends JDialog {
   private final int MODAL_WIDTH = (int) (Main.WINDOW_WIDTH * 0.5);
-  private final int MODAL_HEIGHT = (int) (Main.WINDOW_HEIGHT * 0.5);
+  private final int MODAL_HEIGHT = (int) (Main.WINDOW_HEIGHT * 0.3);
 
   private Map<JLabel, JTextField> inputMap;
   private Map<JLabel, String> errMsgMap;
@@ -47,9 +47,7 @@ public class InputModal extends JDialog {
     return generateValueMap();
   }
 
-  private void hideModal() {
-    this.setVisible(false);
-  }
+  private void hideModal() { this.setVisible(false); }
 
   // initializes all content in modal
   private void initModal() {
@@ -69,16 +67,15 @@ public class InputModal extends JDialog {
     GroupLayout.SequentialGroup horizontal = contentLayout.createSequentialGroup();
     GroupLayout.ParallelGroup labelGroup = contentLayout.createParallelGroup(GroupLayout.Alignment.LEADING);
     GroupLayout.ParallelGroup textFieldGroup = contentLayout.createParallelGroup(GroupLayout.Alignment.LEADING);
-    inputMap.keySet().stream().forEach(label -> labelGroup.addComponent(label));
-    inputMap.values().stream().forEach(textField -> textFieldGroup.addComponent(textField));
+    inputMap.keySet().forEach(labelGroup::addComponent);
+    inputMap.values().forEach(textFieldGroup::addComponent);
     horizontal.addGroup(labelGroup).addGroup(textFieldGroup);
 
     GroupLayout.SequentialGroup vertical = contentLayout.createSequentialGroup();
-    inputMap.entrySet().stream().forEach(entry -> {
+    inputMap.forEach((key, value) ->
       vertical.addGroup(contentLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-          .addComponent(entry.getKey())
-          .addComponent(entry.getValue()));
-    });
+        .addComponent(key)
+        .addComponent(value)));
     
     contentLayout.setHorizontalGroup(horizontal);
     contentLayout.setVerticalGroup(vertical);
@@ -117,17 +114,15 @@ public class InputModal extends JDialog {
 
   private Map<String, String> generateValueMap() {
     Map<String, String> valueMap = new HashMap<>();
-    inputMap.entrySet().stream().forEach(entry -> {
-      valueMap.put(entry.getKey().getText(), entry.getValue().getText().trim());
-    });
+    inputMap.forEach((key, value) -> valueMap.put(key.getText(), value.getText().trim()));
     return valueMap;
   }
 
   private String validateInput() {
-    String errorMsg = "";
-    for (Map.Entry<JLabel, JTextField> entry : inputMap.entrySet()) {
-      if (entry.getValue().getText().trim().equals("")) errorMsg += errMsgMap.get(entry.getKey()) + "\n";
-    }
-    return errorMsg;
+    StringBuilder errorMsg = new StringBuilder();
+    for (Map.Entry<JLabel, JTextField> entry : inputMap.entrySet())
+      if (entry.getValue().getText().trim().equals(""))
+        errorMsg.append(errMsgMap.get(entry.getKey())).append("\n");
+    return errorMsg.toString();
   }
 }

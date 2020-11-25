@@ -27,11 +27,13 @@ public class AttendanceDatabase {
     return data;
   }
 
+  // ensures every asurite in data includes all previously added dates
   private void updateDates(String date) {
     dates.put(date, 0);
     data.forEach((key, value) -> data.put(key, mergeDates(value)));
   }
 
+  // maintains order of dates added
   private LinkedHashMap<String, Integer> mergeDates(LinkedHashMap<String, Integer> dateMap) {
     LinkedHashMap<String, Integer> cloneDates = (LinkedHashMap<String, Integer>) dates.clone();
     dateMap.forEach((key, value) -> {

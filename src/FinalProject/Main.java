@@ -1,6 +1,5 @@
 package FinalProject;
 
-import FinalProject.Components.InputModal;
 import FinalProject.Components.MenuBar;
 import FinalProject.Controllers.AttendanceController;
 import FinalProject.Controllers.PlotController;
@@ -9,7 +8,6 @@ import FinalProject.Controllers.SaveController;
 import FinalProject.Models.AttendanceDatabase;
 
 import javax.swing.*;
-import java.util.Map;
 
 public class Main extends JFrame {
   public static final int WINDOW_WIDTH = 1300;

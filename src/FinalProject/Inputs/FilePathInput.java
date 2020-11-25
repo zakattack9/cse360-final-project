@@ -1,6 +1,7 @@
 package FinalProject.Inputs;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.io.File;
@@ -10,7 +11,12 @@ public class FilePathInput extends JTextField {
   JFrame frame;
 
   public FilePathInput(JFrame frame) {
+    FileNameExtensionFilter fileFilter = new FileNameExtensionFilter("CSV File","csv");
+    File workingDirectory = new File(System.getProperty("user.dir"));
     fileChooser = new JFileChooser();
+    fileChooser.addChoosableFileFilter(fileFilter);
+    fileChooser.setCurrentDirectory(workingDirectory);
+    fileChooser.setAcceptAllFileFilterUsed(false);
     this.frame = frame;
     addListener();
   }
@@ -29,20 +35,16 @@ public class FilePathInput extends JTextField {
   private void addListener() {
     this.addFocusListener(new FocusListener() {
       @Override
-      public void focusGained(FocusEvent e) {
-        chooseFile();
-      }
+      public void focusGained(FocusEvent e) { chooseFile(); }
 
       @Override
-      public void focusLost(FocusEvent e) {
-        enableFocus();
-      }
+      public void focusLost(FocusEvent e) { enableFocus(); }
     });
   }
 
   private void chooseFile() {
     this.setFocusable(false);
-    fileChooser.showSaveDialog(frame);
+    fileChooser.showOpenDialog(frame);
     if (fileChooser.getSelectedFile() != null) {
       this.setText(fileChooser.getSelectedFile().toString());
     } else {
