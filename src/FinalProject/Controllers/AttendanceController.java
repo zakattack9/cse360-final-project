@@ -25,7 +25,7 @@ public class AttendanceController implements ActionListener {
   public void actionPerformed(ActionEvent e) {
     InputModal addAttendanceModal = createInputModal();
     Map<String, String> inputs = addAttendanceModal.showModal();
-    if (inputs.size() > 0) parseCSVFile(inputs.get(filePathInputLabel), inputs.get(dateInputLabel));
+    if (!inputs.isEmpty()) parseCSVFile(inputs.get(filePathInputLabel), inputs.get(dateInputLabel));
   }
 
   private void parseCSVFile(String filePath, String date) {

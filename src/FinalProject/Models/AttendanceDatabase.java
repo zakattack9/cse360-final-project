@@ -62,6 +62,6 @@ public class AttendanceDatabase {
   }
 
   private String parseToString(Integer integer) {
-    return integer + "";
+    return Integer.toString(integer);
   }
 }

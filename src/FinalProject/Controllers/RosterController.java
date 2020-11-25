@@ -22,7 +22,7 @@ public class RosterController implements ActionListener {
   public void actionPerformed(ActionEvent e) {
     InputModal loadRosterModal = createInputModal();
     Map<String, String> inputs = loadRosterModal.showModal();
-    if (inputs.size() > 0) parseCSVFile(inputs.get(filePathInputLabel));
+    if (!inputs.isEmpty()) parseCSVFile(inputs.get(filePathInputLabel));
   }
 
   private void parseCSVFile(String filePath) {
