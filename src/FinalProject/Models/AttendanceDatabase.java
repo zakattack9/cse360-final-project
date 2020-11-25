@@ -3,8 +3,8 @@ package FinalProject.Models;
 import java.util.LinkedHashMap;
 
 public class AttendanceDatabase {
-  LinkedHashMap<String, LinkedHashMap<String, Integer>> data; // key is asurite
-  LinkedHashMap<String, Integer> dates;
+  LinkedHashMap<String, LinkedHashMap<String, String>> data; // key is asurite
+  LinkedHashMap<String, String> dates;
 
   private static AttendanceDatabase attendanceDatabase;
 
@@ -16,41 +16,52 @@ public class AttendanceDatabase {
   public void addEntry(String asurite, String date, Integer time) {
     updateDates(date);
     if (data.get(asurite) != null) {
-      int currTime = data.get(asurite).get(date);
-      data.get(asurite).put(date, currTime + time);
+      int currTime = parseToInt(data.get(asurite).get(date));
+      data.get(asurite).put(date, parseToString(currTime + time));
     } else {
-      LinkedHashMap<String, Integer> map = new LinkedHashMap<>();
-      map.put(date, time);
+      LinkedHashMap<String, String> map = new LinkedHashMap<>();
+      map.put(date, parseToString(time));
       data.put(asurite, map);
     }
   }
 
   // ensure thread-safety
   public static synchronized AttendanceDatabase getInstance() {
-    if (attendanceDatabase == null) {
-      System.out.println("creating new");
-      attendanceDatabase = new AttendanceDatabase();
-    }
+    if (attendanceDatabase == null) attendanceDatabase = new AttendanceDatabase();
     return attendanceDatabase;
   }
 
-  public LinkedHashMap<String, LinkedHashMap<String, Integer>> getData() {
+  public LinkedHashMap<String, LinkedHashMap<String, String>> getData() {
     return data;
   }
 
   // adds all inputted dates to each asurite map
   private void updateDates(String date) {
-    dates.put(date, 0);
-    data.forEach((key, value) -> data.put(key, mergeDates(value)));
+    dates.put(date, "0");
+    data.forEach((asurite, dateMap) -> data.put(asurite, mergeDates(dateMap)));
   }
 
   // maintains order of dates added
-  private LinkedHashMap<String, Integer> mergeDates(LinkedHashMap<String, Integer> dateMap) {
-    LinkedHashMap<String, Integer> cloneDates = (LinkedHashMap<String, Integer>) dates.clone();
-    dateMap.forEach((key, value) -> {
-      cloneDates.merge(key, value, (oldDate, newDate) ->
-        newDate > 0 ? newDate : oldDate);
+  private LinkedHashMap<String, String> mergeDates(LinkedHashMap<String, String> dateMap) {
+    LinkedHashMap<String, String> cloneDates = (LinkedHashMap<String, String>) dates.clone();
+    dateMap.forEach((date, time) -> {
+      cloneDates.merge(date, time, (oldDate, newDate) ->
+        parseToInt(newDate) > 0 ? newDate : oldDate);
     });
     return cloneDates;
+  }
+
+  private Integer parseToInt(String intString) {
+    int parsedInt;
+    try {
+      parsedInt = Integer.parseInt(intString.trim());
+    } catch (NumberFormatException e) {
+      parsedInt = 0;
+    }
+    return parsedInt;
+  }
+
+  private String parseToString(Integer integer) {
+    return integer + "";
   }
 }

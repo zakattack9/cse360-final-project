@@ -1,5 +1,7 @@
 package FinalProject.Parsers;
 
+import FinalProject.Models.RosterDatabase;
+
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -25,6 +27,6 @@ public class RosterParser extends CSVParser {
   }
 
   private void addToDatabase(String id, String firstName, String lastName, String programPlan, String academicLevel, String asurite) {
-    // access database through main
+    RosterDatabase.getInstance().addEntry(id, firstName, lastName, programPlan, academicLevel, asurite);
   }
 }

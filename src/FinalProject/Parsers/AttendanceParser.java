@@ -1,9 +1,9 @@
 package FinalProject.Parsers;
 
+import FinalProject.Models.AttendanceDatabase;
+
 import java.util.NoSuchElementException;
 import java.util.Scanner;
-
-import FinalProject.Models.AttendanceDatabase;
 
 public class AttendanceParser extends CSVParser {
   String date;
