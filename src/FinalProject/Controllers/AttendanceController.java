@@ -17,15 +17,15 @@ public class AttendanceController implements ActionListener {
 
   public AttendanceController(JFrame frame) {
     this.frame = frame;
-    this.filePathInputLabel = "Attendance File Path";
-    this.dateInputLabel = "Date";
+    filePathInputLabel = "Attendance File Path";
+    dateInputLabel = "Date";
   }
 
   @Override
   public void actionPerformed(ActionEvent e) {
-    InputModal addAttendanceModal = createInputModal(frame);
+    InputModal addAttendanceModal = createInputModal();
     Map<String, String> inputs = addAttendanceModal.showModal();
-    if (inputs.size() > 0) parseCSVFile(inputs.get(this.filePathInputLabel), inputs.get(this.dateInputLabel));
+    if (inputs.size() > 0) parseCSVFile(inputs.get(filePathInputLabel), inputs.get(dateInputLabel));
   }
 
   private void parseCSVFile(String filePath, String date) {
@@ -33,14 +33,14 @@ public class AttendanceController implements ActionListener {
     attendanceParser.runParser();
   }
 
-  private InputModal createInputModal(JFrame frame) {
+  private InputModal createInputModal() {
     InputModal inputModal = new InputModal(frame, "Add Attendance");
 
     FilePathInput filePathInput = new FilePathInput(frame);
-    inputModal.addInput(this.filePathInputLabel, filePathInput, filePathInput.getErrorMessage());
+    inputModal.addInput(filePathInputLabel, filePathInput, filePathInput.getErrorMessage());
 
     DateInput dateInput = new DateInput();
-    inputModal.addInput(this.dateInputLabel, dateInput, dateInput.getErrorMessage());
+    inputModal.addInput(dateInputLabel, dateInput, dateInput.getErrorMessage());
     return inputModal;
   }
 }

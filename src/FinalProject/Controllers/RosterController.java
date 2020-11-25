@@ -15,14 +15,14 @@ public class RosterController implements ActionListener {
 
   public RosterController(JFrame frame) {
     this.frame = frame;
-    this.filePathInputLabel = "Roster File Path";
+    filePathInputLabel = "Roster File Path";
   }
 
   @Override
   public void actionPerformed(ActionEvent e) {
-    InputModal loadRosterModal = createInputModal(frame);
+    InputModal loadRosterModal = createInputModal();
     Map<String, String> inputs = loadRosterModal.showModal();
-    if (inputs.size() > 0) parseCSVFile(inputs.get(this.filePathInputLabel));
+    if (inputs.size() > 0) parseCSVFile(inputs.get(filePathInputLabel));
   }
 
   private void parseCSVFile(String filePath) {
@@ -30,11 +30,11 @@ public class RosterController implements ActionListener {
     rosterParser.runParser();
   }
 
-  private InputModal createInputModal(JFrame frame) {
+  private InputModal createInputModal() {
     InputModal inputModal = new InputModal(frame, "Load a Roster");
 
     FilePathInput filePathInput = new FilePathInput(frame);
-    inputModal.addInput(this.filePathInputLabel, filePathInput, filePathInput.getErrorMessage());
+    inputModal.addInput(filePathInputLabel, filePathInput, filePathInput.getErrorMessage());
     return inputModal;
   }
 }

@@ -17,7 +17,7 @@ public abstract class Parser {
   protected Scanner initializeParser() {
     Scanner scanner = null;
     try {
-      File file = new File(this.filePath);
+      File file = new File(filePath);
       scanner = new Scanner(file);
     } catch (FileNotFoundException e) {
       e.printStackTrace();

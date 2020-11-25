@@ -27,7 +27,7 @@ public class AttendanceParser extends Parser {
     try {
       String asurite = line.next().trim();
       int time = Integer.parseInt(line.next().trim());
-      addToDatabase(asurite, this.date, time);
+      addToDatabase(asurite, date, time);
     } catch (NoSuchElementException | NumberFormatException e) {
       return false;
     }
