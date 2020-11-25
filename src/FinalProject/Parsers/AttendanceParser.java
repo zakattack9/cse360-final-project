@@ -25,6 +25,5 @@ public class AttendanceParser extends CSVParser {
 
   private void addToDatabase(String asurite, String date, int time) {
     // access database through main
-    System.out.println(asurite + time + date);
   }
 }

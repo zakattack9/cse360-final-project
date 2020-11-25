@@ -12,8 +12,10 @@ public class FilePathInput extends JTextField {
 
   public FilePathInput(JFrame frame) {
     FileNameExtensionFilter fileFilter = new FileNameExtensionFilter("CSV File","csv");
+    File workingDirectory = new File(System.getProperty("user.dir"));
     fileChooser = new JFileChooser();
     fileChooser.addChoosableFileFilter(fileFilter);
+    fileChooser.setCurrentDirectory(workingDirectory);
     fileChooser.setAcceptAllFileFilterUsed(false);
     this.frame = frame;
     addListener();

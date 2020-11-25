@@ -25,7 +25,6 @@ public class RosterParser extends CSVParser {
   }
 
   private void addToDatabase(String id, String firstName, String lastName, String programPlan, String academicLevel, String asurite) {
-    // access database through
-    System.out.println(id + firstName + lastName + programPlan + academicLevel + asurite);
+    // access database through main
   }
 }
