@@ -3,20 +3,9 @@ package FinalProject.Parsers;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-public class RosterParser extends Parser {
+public class RosterParser extends CSVParser {
   public RosterParser(String filePath) {
     super(filePath);
-  }
-
-  @Override
-  public void runParser() {
-    Scanner parser = initializeParser();
-    while(parser.hasNextLine()) {
-      Scanner line = new Scanner(parser.nextLine());
-      line.useDelimiter(",");
-      boolean parseSuccessful = parseLine(line);
-      if (!parseSuccessful) break;
-    }
   }
 
   @Override
@@ -36,6 +25,7 @@ public class RosterParser extends Parser {
   }
 
   private void addToDatabase(String id, String firstName, String lastName, String programPlan, String academicLevel, String asurite) {
-    // access database through main
+    // access database through
+    System.out.println(id + firstName + lastName + programPlan + academicLevel + asurite);
   }
 }

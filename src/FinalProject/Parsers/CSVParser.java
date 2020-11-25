@@ -4,15 +4,24 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public abstract class Parser {
+public abstract class CSVParser {
   protected String filePath;
 
-  public Parser(String filePath) {
+  public CSVParser(String filePath) {
     this.filePath = filePath;
   }
 
-  public abstract void runParser();
   protected abstract boolean parseLine(Scanner line);
+
+  public void runParser() {
+    Scanner parser = initializeParser();
+    while(parser.hasNextLine()) {
+      Scanner line = new Scanner(parser.nextLine());
+      line.useDelimiter(",");
+      boolean parseSuccessful = parseLine(line);
+      if (!parseSuccessful) break;
+    }
+  }
 
   protected Scanner initializeParser() {
     Scanner scanner = null;

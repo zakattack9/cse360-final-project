@@ -3,23 +3,12 @@ package FinalProject.Parsers;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-public class AttendanceParser extends Parser {
+public class AttendanceParser extends CSVParser {
   String date;
 
   public AttendanceParser(String filePath, String date) {
     super(filePath);
     this.date = date;
-  }
-
-  @Override
-  public void runParser() {
-    Scanner parser = initializeParser();
-    while(parser.hasNextLine()) {
-      Scanner line = new Scanner(parser.nextLine());
-      line.useDelimiter(",");
-      boolean parseSuccessful = parseLine(line);
-      if (!parseSuccessful) break;
-    }
   }
 
   @Override
@@ -36,5 +25,6 @@ public class AttendanceParser extends Parser {
 
   private void addToDatabase(String asurite, String date, int time) {
     // access database through main
+    System.out.println(asurite + time + date);
   }
 }
