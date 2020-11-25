@@ -44,10 +44,9 @@ public class AttendanceDatabase {
   // maintains order of dates added
   private LinkedHashMap<String, String> mergeDates(LinkedHashMap<String, String> dateMap) {
     LinkedHashMap<String, String> cloneDates = (LinkedHashMap<String, String>) dates.clone();
-    dateMap.forEach((date, time) -> {
+    dateMap.forEach((date, time) ->
       cloneDates.merge(date, time, (oldDate, newDate) ->
-        parseToInt(newDate) > 0 ? newDate : oldDate);
-    });
+        parseToInt(newDate) > 0 ? newDate : oldDate));
     return cloneDates;
   }
 
