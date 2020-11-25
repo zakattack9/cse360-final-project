@@ -15,7 +15,7 @@ public abstract class CSVParser {
 
   public void runParser() {
     Scanner parser = initializeParser();
-    while(parser.hasNextLine()) {
+    while(parser != null && parser.hasNextLine()) {
       Scanner line = new Scanner(parser.nextLine());
       line.useDelimiter(",");
       boolean parseSuccessful = parseLine(line);
@@ -24,12 +24,12 @@ public abstract class CSVParser {
   }
 
   protected Scanner initializeParser() {
-    Scanner scanner = null;
+    Scanner scanner;
     try {
       File file = new File(filePath);
       scanner = new Scanner(file);
     } catch (FileNotFoundException e) {
-      e.printStackTrace();
+      scanner = null;
     }
     return scanner;
   }
