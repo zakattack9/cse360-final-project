@@ -12,6 +12,7 @@ public class DateInput extends JTextField {
   public DateInput() {
     dateFormat1 = new SimpleDateFormat("MMM dd");
     dateFormat2 = new SimpleDateFormat("MMM d");
+    setColumns(20);
   }
 
   @Override

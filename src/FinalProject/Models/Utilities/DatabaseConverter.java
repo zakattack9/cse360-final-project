@@ -53,7 +53,7 @@ public class DatabaseConverter {
   }
 
   private String[] buildRow(LinkedHashMap<String, String> dataMap) {
-    return dataMap.values().toArray(new String[dataMap.size()]);
+    return dataMap.values().toArray(new String[0]);
   }
 
   private Map<String, String> getFirstNestedMap(LinkedHashMap<String, LinkedHashMap<String, String>> database) {

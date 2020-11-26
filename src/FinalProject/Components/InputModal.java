@@ -1,27 +1,25 @@
 package FinalProject.Components;
 
-import FinalProject.Main;
-
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 public class InputModal extends JDialog {
-  private final int MODAL_WIDTH = (int) (Main.WINDOW_WIDTH * 0.5);
-  private final int MODAL_HEIGHT = (int) (Main.WINDOW_HEIGHT * 0.2);
-
   private Map<JLabel, JTextField> inputMap;
   private Map<JLabel, String> errMsgMap;
   private boolean clickedCancel;
+  private JFrame frame;
 
   public InputModal(JFrame frame, String name) {
     super(frame, name, true);
-    this.setSize(MODAL_WIDTH, MODAL_HEIGHT);
-    this.setLocationRelativeTo(frame);
+    this.frame = frame;
     inputMap = new LinkedHashMap<>();
     errMsgMap = new HashMap<>();
+    addClosingListener();
   }
 
   // adds input with normal JTextField
@@ -44,11 +42,13 @@ public class InputModal extends JDialog {
 
   public Map<String, String> showModal() {
     initModal();
-    this.setVisible(true);
+    pack();
+    setLocationRelativeTo(this.frame);
+    setVisible(true);
     return generateValueMap();
   }
 
-  private void hideModal() { this.setVisible(false); }
+  private void hideModal() { setVisible(false); }
 
   // initializes all content in modal
   private void initModal() {
@@ -57,7 +57,7 @@ public class InputModal extends JDialog {
     JPanel buttons = createButtonsPanel();
     layout.add(content, BorderLayout.NORTH);
     layout.add(buttons, BorderLayout.SOUTH);
-    this.add(layout);
+    add(layout);
     clickedCancel = false;
   }
 
@@ -130,5 +130,11 @@ public class InputModal extends JDialog {
       if (entry.getValue().getText().trim().equals(""))
         errorMsg.append(errMsgMap.get(entry.getKey())).append("\n");
     return errorMsg.toString();
+  }
+
+  private void addClosingListener() {
+    addWindowListener(new WindowAdapter() {
+      public void windowClosing(WindowEvent e) { clickedCancel = true; }
+    });
   }
 }

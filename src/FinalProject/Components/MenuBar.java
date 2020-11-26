@@ -23,8 +23,8 @@ public class MenuBar extends JMenuBar {
     file.add(save);
     file.add(plotData);
 
-    this.add(file);
-    this.add(about);
+    add(file);
+    add(about);
   }
 
   public void addRosterController(ActionListener actionListener) {
