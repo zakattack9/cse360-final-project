@@ -8,10 +8,28 @@ import java.util.Map;
 public class DatabaseConverter {
   String[][] tableArr;
   LinkedHashMap<String, LinkedHashMap<String, String>> database;
+  DatabaseMerger databaseMerger;
 
-  public DatabaseConverter(LinkedHashMap<String, LinkedHashMap<String, String>> database) {
+  public DatabaseConverter() {
+    databaseMerger = new DatabaseMerger();
+  }
+
+  // returns table model of passed in database
+  public DefaultTableModel getTableModel(LinkedHashMap<String, LinkedHashMap<String, String>> database) {
     this.database = database;
-    if (!database.isEmpty()) {
+    initializeTableArr();
+    return createTableModel();
+  }
+
+  // returns table model of latest data from databases
+  public DefaultTableModel getCurrentTableModel() {
+    database = databaseMerger.getMergedDBs();
+    initializeTableArr();
+    return createTableModel();
+  }
+
+  private void initializeTableArr() {
+    if (database != null && !database.isEmpty()) {
       Map<String, String> firstMap = getFirstNestedMap(database);
       int rows = database.size();
       int columns = firstMap.size();
@@ -19,19 +37,19 @@ public class DatabaseConverter {
     }
   }
 
-  public String[][] getArrayModel() {
-    return database.values().stream().map(dataMap -> buildRow(dataMap)).toArray(String[][]::new);
-  }
-
-  public String[] getDBKeys() {
-    Map<String, String> firstMap = getFirstNestedMap(database);
-    return firstMap.keySet().toArray(String[]::new);
-  }
-
-  public DefaultTableModel getTableModel() {
+  private DefaultTableModel createTableModel() {
     DefaultTableModel defaultTableModel = new DefaultTableModel();
     defaultTableModel.setDataVector(getArrayModel(), getDBKeys());
     return defaultTableModel;
+  }
+
+  private String[][] getArrayModel() {
+    return database.values().stream().map(dataMap -> buildRow(dataMap)).toArray(String[][]::new);
+  }
+
+  private String[] getDBKeys() {
+    Map<String, String> firstMap = getFirstNestedMap(database);
+    return firstMap.keySet().toArray(String[]::new);
   }
 
   private String[] buildRow(LinkedHashMap<String, String> dataMap) {
