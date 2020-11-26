@@ -36,8 +36,7 @@ public class AttendanceDatabase extends Database {
 
   // add asurites from roster to attendance
   public void addAsurite(String asurite) {
-    LinkedHashMap<String, String> map = new LinkedHashMap<>();
-    data.put(asurite, map);
+    data.put(asurite, new LinkedHashMap<>());
   }
 
   @Override

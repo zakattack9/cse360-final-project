@@ -28,7 +28,6 @@ public class Main extends JFrame {
     PlotController plotController = new PlotController();
     menuBar.addPlotController(plotController);
 
-
     // configure JFrame window properties
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
