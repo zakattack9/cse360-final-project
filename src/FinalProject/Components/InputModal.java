@@ -10,10 +10,11 @@ import java.util.LinkedHashMap;
 
 public class InputModal extends JDialog {
   private final int MODAL_WIDTH = (int) (Main.WINDOW_WIDTH * 0.5);
-  private final int MODAL_HEIGHT = (int) (Main.WINDOW_HEIGHT * 0.3);
+  private final int MODAL_HEIGHT = (int) (Main.WINDOW_HEIGHT * 0.2);
 
   private Map<JLabel, JTextField> inputMap;
   private Map<JLabel, String> errMsgMap;
+  private boolean clickedCancel;
 
   public InputModal(JFrame frame, String name) {
     super(frame, name, true);
@@ -57,6 +58,7 @@ public class InputModal extends JDialog {
     layout.add(content, BorderLayout.NORTH);
     layout.add(buttons, BorderLayout.SOUTH);
     this.add(layout);
+    clickedCancel = false;
   }
 
   // creates JPanel with all added inputs
@@ -98,7 +100,10 @@ public class InputModal extends JDialog {
 
   private JButton createCancelBtn() {
     JButton cancelBtn = new JButton("Cancel");
-    cancelBtn.addActionListener(e -> hideModal());
+    cancelBtn.addActionListener(e -> {
+      clickedCancel = true;
+      hideModal();
+    });
     return cancelBtn;
   }
 
@@ -114,6 +119,7 @@ public class InputModal extends JDialog {
 
   private Map<String, String> generateValueMap() {
     Map<String, String> valueMap = new HashMap<>();
+    if (clickedCancel) return valueMap;
     inputMap.forEach((key, value) -> valueMap.put(key.getText(), value.getText().trim()));
     return valueMap;
   }

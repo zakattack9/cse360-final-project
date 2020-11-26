@@ -1,5 +1,7 @@
 package FinalProject.Parsers;
 
+import FinalProject.Models.AttendanceDatabase;
+
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -15,7 +17,7 @@ public class AttendanceParser extends CSVParser {
   protected boolean parseLine(Scanner line) {
     try {
       String asurite = line.next().trim();
-      int time = Integer.parseInt(line.next().trim());
+      Integer time = Integer.parseInt(line.next().trim());
       addToDatabase(asurite, date, time);
     } catch (NoSuchElementException | NumberFormatException e) {
       return false;
@@ -23,7 +25,7 @@ public class AttendanceParser extends CSVParser {
     return true;
   }
 
-  private void addToDatabase(String asurite, String date, int time) {
-    // access database through main
+  private void addToDatabase(String asurite, String date, Integer time) {
+    AttendanceDatabase.getInstance().addEntry(asurite, date, time);
   }
 }
