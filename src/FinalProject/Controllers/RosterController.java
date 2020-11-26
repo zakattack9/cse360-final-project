@@ -2,6 +2,8 @@ package FinalProject.Controllers;
 
 import FinalProject.Components.InputModal;
 import FinalProject.Inputs.FilePathInput;
+import FinalProject.Models.AttendanceDatabase;
+import FinalProject.Models.RosterDatabase;
 import FinalProject.Parsers.RosterParser;
 
 import javax.swing.*;
@@ -22,7 +24,11 @@ public class RosterController implements ActionListener {
   public void actionPerformed(ActionEvent e) {
     InputModal loadRosterModal = createInputModal();
     Map<String, String> inputs = loadRosterModal.showModal();
-    if (!inputs.isEmpty()) parseCSVFile(inputs.get(filePathInputLabel));
+
+    if (!inputs.isEmpty()) {
+      clearDatabases();
+      parseCSVFile(inputs.get(filePathInputLabel));
+    }
   }
 
   private void parseCSVFile(String filePath) {
@@ -42,5 +48,10 @@ public class RosterController implements ActionListener {
   private void showInvalidCSVPopup() {
     String message = "Please load a valid roster CSV";
     JOptionPane.showMessageDialog(frame, message, "Error", JOptionPane.ERROR_MESSAGE);
+  }
+
+  private void clearDatabases() {
+    AttendanceDatabase.getInstance().clearDatabase();
+    RosterDatabase.getInstance().clearDatabase();
   }
 }

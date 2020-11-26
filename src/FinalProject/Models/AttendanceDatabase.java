@@ -1,18 +1,15 @@
 package FinalProject.Models;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.LinkedHashMap;
 
-public class AttendanceDatabase implements ActionListener {
-  LinkedHashMap<String, LinkedHashMap<String, String>> data; // key is asurite
+public class AttendanceDatabase extends Database {
+  private static AttendanceDatabase attendanceDatabase;
+
   LinkedHashMap<String, String> dates;
   LinkedHashMap<String, Integer> additionalAsurites;
 
-  private static AttendanceDatabase attendanceDatabase;
-
   private AttendanceDatabase() {
-    data = new LinkedHashMap<>();
+    super();
     dates = new LinkedHashMap<>();
     additionalAsurites = new LinkedHashMap<>();
   }
@@ -33,10 +30,6 @@ public class AttendanceDatabase implements ActionListener {
     return attendanceDatabase;
   }
 
-  public LinkedHashMap<String, LinkedHashMap<String, String>> getData() {
-    return data;
-  }
-
   public LinkedHashMap<String, Integer> getAdditionalAsurites() {
     return additionalAsurites;
   }
@@ -48,43 +41,25 @@ public class AttendanceDatabase implements ActionListener {
   }
 
   @Override
-  public void actionPerformed(ActionEvent e) {
-    // double check if action event is when new roster is loaded
-    clearDatabase();
-  }
-
-  private void clearDatabase() {
+  public void clearDatabase() {
     data.clear();
     dates.clear();
+    additionalAsurites.clear();
   }
 
-  // adds all inputted dates to each asurite map
+  // ensures each asurite hashmap includes all previously/newly added dates
   private void updateDates(String date) {
+    if (dates.get(date) == null) additionalAsurites.clear();
     dates.put(date, "0");
     data.forEach((asurite, dateMap) -> data.put(asurite, mergeDates(dateMap)));
   }
 
   // maintains order of dates added
   private LinkedHashMap<String, String> mergeDates(LinkedHashMap<String, String> dateMap) {
-    LinkedHashMap<String, String> cloneDates = (LinkedHashMap<String, String>) dates.clone();
+    LinkedHashMap<String, String> clonedDates = (LinkedHashMap<String, String>) dates.clone();
     dateMap.forEach((date, time) ->
-      cloneDates.merge(date, time, (oldDate, newDate) ->
+      clonedDates.merge(date, time, (oldDate, newDate) ->
         parseToInt(newDate) > 0 ? newDate : oldDate));
-    return cloneDates;
-  }
-
-  private Integer parseToInt(String intString) {
-    if (intString == null) return 0;
-    int parsedInt;
-    try {
-      parsedInt = Integer.parseInt(intString.trim());
-    } catch (NumberFormatException e) {
-      parsedInt = 0;
-    }
-    return parsedInt;
-  }
-
-  private String parseToString(Integer integer) {
-    return Integer.toString(integer);
+    return clonedDates;
   }
 }

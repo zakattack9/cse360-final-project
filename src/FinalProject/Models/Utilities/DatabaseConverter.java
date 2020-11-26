@@ -19,7 +19,7 @@ public class DatabaseConverter {
     }
   }
 
-  public String[][] getConvertedDB() {
+  public String[][] getArrayModel() {
     return database.values().stream().map(dataMap -> buildRow(dataMap)).toArray(String[][]::new);
   }
 
@@ -30,7 +30,7 @@ public class DatabaseConverter {
 
   public DefaultTableModel getTableModel() {
     DefaultTableModel defaultTableModel = new DefaultTableModel();
-    defaultTableModel.setDataVector(getConvertedDB(), getDBKeys());
+    defaultTableModel.setDataVector(getArrayModel(), getDBKeys());
     return defaultTableModel;
   }
 

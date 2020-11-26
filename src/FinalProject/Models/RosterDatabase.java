@@ -2,13 +2,11 @@ package FinalProject.Models;
 
 import java.util.LinkedHashMap;
 
-public class RosterDatabase {
-  LinkedHashMap<String, LinkedHashMap<String, String>> data; // key is asurite
-
+public class RosterDatabase extends Database {
   private static RosterDatabase rosterDatabase;
 
   private RosterDatabase() {
-    data = new LinkedHashMap<>();
+    super();
   }
 
   public void addEntry(String id, String firstName, String lastName, String programPlan, String academicLevel, String asurite) {
@@ -23,8 +21,7 @@ public class RosterDatabase {
     data.get(asurite).put("Academic Level", academicLevel);
     data.get(asurite).put("ASURITE", asurite);
 
-    AttendanceDatabase attendanceDatabase = AttendanceDatabase.getInstance();
-    attendanceDatabase.addAsurite(asurite);
+    AttendanceDatabase.getInstance().addAsurite(asurite);
   }
 
   // ensure thread-safety
@@ -33,7 +30,6 @@ public class RosterDatabase {
     return rosterDatabase;
   }
 
-  public LinkedHashMap<String, LinkedHashMap<String, String>> getData() { return data; }
-
-  public boolean isEmpty() { return data == null || data.size() == 0; }
+  @Override
+  public void clearDatabase() { data.clear(); }
 }

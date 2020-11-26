@@ -15,10 +15,10 @@ public class DatabaseMerger {
     attendanceDatabase = AttendanceDatabase.getInstance();
     rosterDatabase = RosterDatabase.getInstance();
     mergedDatabase = new LinkedHashMap<>();
-    mergeDatabases();
   }
 
   public LinkedHashMap<String, LinkedHashMap<String, String>> getMergedDBs() {
+    mergeDatabases();
     return mergedDatabase;
   }
 
