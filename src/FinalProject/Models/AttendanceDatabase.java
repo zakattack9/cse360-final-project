@@ -1,16 +1,20 @@
 package FinalProject.Models;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.LinkedHashMap;
 
-public class AttendanceDatabase {
+public class AttendanceDatabase implements ActionListener {
   LinkedHashMap<String, LinkedHashMap<String, String>> data; // key is asurite
   LinkedHashMap<String, String> dates;
+  LinkedHashMap<String, Integer> additionalAsurites;
 
   private static AttendanceDatabase attendanceDatabase;
 
   private AttendanceDatabase() {
     data = new LinkedHashMap<>();
     dates = new LinkedHashMap<>();
+    additionalAsurites = new LinkedHashMap<>();
   }
 
   public void addEntry(String asurite, String date, Integer time) {
@@ -19,9 +23,7 @@ public class AttendanceDatabase {
       int currTime = parseToInt(data.get(asurite).get(date));
       data.get(asurite).put(date, parseToString(currTime + time));
     } else {
-      LinkedHashMap<String, String> map = new LinkedHashMap<>();
-      map.put(date, parseToString(time));
-      data.put(asurite, map);
+      additionalAsurites.merge(asurite, time, Integer::sum);
     }
   }
 
@@ -33,6 +35,27 @@ public class AttendanceDatabase {
 
   public LinkedHashMap<String, LinkedHashMap<String, String>> getData() {
     return data;
+  }
+
+  public LinkedHashMap<String, Integer> getAdditionalAsurites() {
+    return additionalAsurites;
+  }
+
+  // add asurites from roster to attendance
+  public void addAsurite(String asurite) {
+    LinkedHashMap<String, String> map = new LinkedHashMap<>();
+    data.put(asurite, map);
+  }
+
+  @Override
+  public void actionPerformed(ActionEvent e) {
+    // double check if action event is when new roster is loaded
+    clearDatabase();
+  }
+
+  private void clearDatabase() {
+    data.clear();
+    dates.clear();
   }
 
   // adds all inputted dates to each asurite map
@@ -51,6 +74,7 @@ public class AttendanceDatabase {
   }
 
   private Integer parseToInt(String intString) {
+    if (intString == null) return 0;
     int parsedInt;
     try {
       parsedInt = Integer.parseInt(intString.trim());

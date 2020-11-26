@@ -22,6 +22,9 @@ public class RosterDatabase {
     data.get(asurite).put("Program and Plan", programPlan);
     data.get(asurite).put("Academic Level", academicLevel);
     data.get(asurite).put("ASURITE", asurite);
+
+    AttendanceDatabase attendanceDatabase = AttendanceDatabase.getInstance();
+    attendanceDatabase.addAsurite(asurite);
   }
 
   // ensure thread-safety
@@ -30,7 +33,7 @@ public class RosterDatabase {
     return rosterDatabase;
   }
 
-  public LinkedHashMap<String, LinkedHashMap<String, String>> getData() {
-    return data;
-  }
+  public LinkedHashMap<String, LinkedHashMap<String, String>> getData() { return data; }
+
+  public boolean isEmpty() { return data == null || data.size() == 0; }
 }

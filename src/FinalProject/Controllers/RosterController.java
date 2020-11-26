@@ -27,7 +27,8 @@ public class RosterController implements ActionListener {
 
   private void parseCSVFile(String filePath) {
     RosterParser rosterParser = new RosterParser(filePath);
-    rosterParser.runParser();
+    boolean success = rosterParser.runParser();
+    if (!success) showInvalidCSVPopup();
   }
 
   private InputModal createInputModal() {
@@ -36,5 +37,10 @@ public class RosterController implements ActionListener {
     FilePathInput filePathInput = new FilePathInput(frame);
     inputModal.addInput(filePathInputLabel, filePathInput, filePathInput.getErrorMessage());
     return inputModal;
+  }
+
+  private void showInvalidCSVPopup() {
+    String message = "Please load a valid roster CSV";
+    JOptionPane.showMessageDialog(frame, message, "Error", JOptionPane.ERROR_MESSAGE);
   }
 }

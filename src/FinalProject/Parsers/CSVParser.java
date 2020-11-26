@@ -13,14 +13,15 @@ public abstract class CSVParser {
 
   protected abstract boolean parseLine(Scanner line);
 
-  public void runParser() {
+  public boolean runParser() {
     Scanner parser = initializeParser();
     while(parser != null && parser.hasNextLine()) {
       Scanner line = new Scanner(parser.nextLine());
       line.useDelimiter(",");
       boolean parseSuccessful = parseLine(line);
-      if (!parseSuccessful) break;
+      if (!parseSuccessful) return false;
     }
+    return true;
   }
 
   protected Scanner initializeParser() {
