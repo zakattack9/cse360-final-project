@@ -18,6 +18,7 @@ public class FilePathInput extends JTextField {
     fileChooser.setCurrentDirectory(workingDirectory);
     fileChooser.setAcceptAllFileFilterUsed(false);
     this.frame = frame;
+    setColumns(20);
     addListener();
   }
 
@@ -33,7 +34,7 @@ public class FilePathInput extends JTextField {
   }
 
   private void addListener() {
-    this.addFocusListener(new FocusListener() {
+    addFocusListener(new FocusListener() {
       @Override
       public void focusGained(FocusEvent e) { chooseFile(); }
 
@@ -43,16 +44,16 @@ public class FilePathInput extends JTextField {
   }
 
   private void chooseFile() {
-    this.setFocusable(false);
+    setFocusable(false);
     fileChooser.showOpenDialog(frame);
     if (fileChooser.getSelectedFile() != null) {
-      this.setText(fileChooser.getSelectedFile().toString());
+      setText(fileChooser.getSelectedFile().toString());
     } else {
-      this.setFocusable(true);
+      setFocusable(true);
     }
   }
 
   private void enableFocus() {
-    this.setFocusable(true);
+    setFocusable(true);
   }
 }

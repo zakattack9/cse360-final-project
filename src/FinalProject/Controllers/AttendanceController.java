@@ -76,7 +76,7 @@ public class AttendanceController implements ActionListener {
 
     StringBuilder message = new StringBuilder("Data loaded for ");
     message.append(numLoadedAsurites).append(" Asurites in the roster\n\n");
-    message.append(numAdditionalAsurites).append(" additional attendee(s) found:\n");
+    message.append(numAdditionalAsurites).append(" additional attendee(s) found:\n\n");
     additionalAsurites.forEach((asurite, time) -> message.append(asurite).append(", connected for ").append(time).append(" minute(s)\n"));
     return message.toString();
   }
