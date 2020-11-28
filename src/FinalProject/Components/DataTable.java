@@ -1,12 +1,11 @@
 package FinalProject.Components;
 
-import FinalProject.Models.RosterDatabase;
 import FinalProject.Models.Utilities.DatabaseConverter;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-public class RosterTableLoader {
+public class DataTable extends JTable {
 
     private DatabaseConverter dataConvert;
     private DefaultTableModel tableModel;
@@ -17,14 +16,16 @@ public class RosterTableLoader {
     private JScrollBar horizontalBar;
     private JScrollBar verticalBar;
 
-    public RosterTableLoader(JFrame jTable){
+    public DataTable(){
+        dataConvert = new DatabaseConverter();
 
-        this.frame = jTable;
-        String[] columnTitles = {"ID", "First Name","Last Name", "Program", "Level", "ASURITE"};
-//        dataConvert = new DatabaseConverter();
-//        currentData = dataConvert.getCurrentTableModel();
-//
-//        tableModel = new DefaultTableModel(columnTitles,0);
+    }
+
+    public JScrollPane getScrollPane() {
+       // currentData = dataConvert.getCurrentTableModel();
+
+        tableModel = new DefaultTableModel();
+        DefaultTableModel tableModel = dataConvert.getCurrentTableModel();
 
         table = new JTable(tableModel);
         table.setBounds(30,40,200,300);
@@ -32,13 +33,11 @@ public class RosterTableLoader {
         scrollPane = new JScrollPane(table);
         horizontalBar = new JScrollBar(JScrollBar.HORIZONTAL);
         verticalBar = new JScrollBar(JScrollBar.VERTICAL);
-        //frame.add(table);
-        frame.add(scrollPane);
-        frame.add(horizontalBar);
-        frame.add(verticalBar);
-        frame.setSize(300,400);
-        frame.setVisible(true);
+        table.add(horizontalBar);
+        table.add(verticalBar);
+        table.add(scrollPane);
+        table.setSize(300,400);
+        table.setVisible(true);
+        return scrollPane;
     }
-
 }
-
