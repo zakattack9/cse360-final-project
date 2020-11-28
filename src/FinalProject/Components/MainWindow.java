@@ -4,6 +4,7 @@ import FinalProject.Controllers.AttendanceController;
 import FinalProject.Controllers.PlotController;
 import FinalProject.Controllers.RosterController;
 import FinalProject.Controllers.SaveController;
+import FinalProject.Models.Utilities.DatabaseConverter;
 
 import javax.swing.*;
 
@@ -27,10 +28,8 @@ public class MainWindow extends JFrame {
     PlotController plotController = new PlotController();
     menuBar.addPlotController(plotController);
 
-    JFrame f = new JFrame();
-    RosterTableLoader rosterTableLoader = new RosterTableLoader(f);
-
-
+    DataTable dataTable = new DataTable();
+    dataTable.getScrollPane();
 
 
     // configure JFrame window properties
