@@ -1,6 +1,7 @@
 package FinalProject.Models.Utilities;
 
 import FinalProject.Models.AttendanceDatabase;
+import FinalProject.Models.Database;
 import FinalProject.Models.RosterDatabase;
 
 import java.util.LinkedHashMap;
@@ -13,9 +14,9 @@ public class DatabaseMerger {
     mergedDatabase = new LinkedHashMap<>();
   }
 
-  public LinkedHashMap<String, LinkedHashMap<String, String>> getMergedDBs() {
-    LinkedHashMap<String, LinkedHashMap<String, String>> rosterData = RosterDatabase.getInstance().getData();
-    LinkedHashMap<String, LinkedHashMap<String, String>> attendanceData = AttendanceDatabase.getInstance().getData();
+  public Database getMergedDBs() {
+    Database attendanceData = RosterDatabase.getInstance();
+    Database rosterData = AttendanceDatabase.getInstance();
     rosterData.forEach((asurite, dataMap) -> dataMap.putAll(attendanceData.get(asurite)));
     return rosterData;
   }

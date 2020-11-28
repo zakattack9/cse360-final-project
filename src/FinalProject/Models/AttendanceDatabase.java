@@ -9,16 +9,15 @@ public class AttendanceDatabase extends Database {
   LinkedHashMap<String, Integer> additionalAsurites;
 
   private AttendanceDatabase() {
-    super();
     dates = new LinkedHashMap<>();
     additionalAsurites = new LinkedHashMap<>();
   }
 
   public void addEntry(String asurite, String date, Integer time) {
     updateDates(date);
-    if (data.get(asurite) != null) {
-      int currTime = parseToInt(data.get(asurite).get(date));
-      data.get(asurite).put(date, parseToString(currTime + time));
+    if (this.get(asurite) != null) {
+      int currTime = parseToInt(this.get(asurite).get(date));
+      this.get(asurite).put(date, parseToString(currTime + time));
     } else {
       additionalAsurites.merge(asurite, time, Integer::sum);
     }
@@ -36,12 +35,12 @@ public class AttendanceDatabase extends Database {
 
   // add asurites from roster to attendance
   public void addAsurite(String asurite) {
-    data.put(asurite, new LinkedHashMap<>());
+    this.put(asurite, new LinkedHashMap<>());
   }
 
   @Override
   public void clearDatabase() {
-    data.clear();
+    this.clear();
     dates.clear();
     additionalAsurites.clear();
   }
@@ -50,7 +49,7 @@ public class AttendanceDatabase extends Database {
   private void updateDates(String date) {
     if (dates.get(date) == null) additionalAsurites.clear();
     dates.put(date, "0");
-    data.forEach((asurite, dateMap) -> data.put(asurite, mergeDates(dateMap)));
+    this.forEach((asurite, dateMap) -> this.put(asurite, mergeDates(dateMap)));
   }
 
   // maintains order of dates added
