@@ -1,5 +1,6 @@
 package FinalProject.Controllers;
 
+import FinalProject.Components.DataTable;
 import FinalProject.Components.InputModal;
 import FinalProject.Inputs.DateInput;
 import FinalProject.Inputs.FilePathInput;
@@ -31,7 +32,11 @@ public class AttendanceController implements ActionListener {
 
     if (!inputs.isEmpty()) {
       if (RosterDatabase.getInstance().isEmpty()) showNoRosterPopup();
-      else parseCSVFile(inputs.get(filePathInputLabel), inputs.get(dateInputLabel));
+      else {
+        parseCSVFile(inputs.get(filePathInputLabel), inputs.get(dateInputLabel));
+        DataTable dataTable = DataTable.getInstance();
+        dataTable.updateTable();
+      }
     }
   }
 

@@ -1,5 +1,6 @@
 package FinalProject.Controllers;
 
+import FinalProject.Components.DataTable;
 import FinalProject.Components.InputModal;
 import FinalProject.Inputs.FilePathInput;
 import FinalProject.Models.AttendanceDatabase;
@@ -7,6 +8,7 @@ import FinalProject.Models.RosterDatabase;
 import FinalProject.Parsers.RosterParser;
 
 import javax.swing.*;
+import javax.xml.crypto.Data;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Map;
@@ -25,9 +27,12 @@ public class RosterController implements ActionListener {
     InputModal loadRosterModal = createInputModal();
     Map<String, String> inputs = loadRosterModal.showModal();
 
+
     if (!inputs.isEmpty()) {
       clearDatabases();
       parseCSVFile(inputs.get(filePathInputLabel));
+      DataTable dataTable = DataTable.getInstance();
+      dataTable.updateTable();
     }
   }
 

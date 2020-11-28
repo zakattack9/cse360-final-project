@@ -28,8 +28,8 @@ public class MainWindow extends JFrame {
     PlotController plotController = new PlotController();
     menuBar.addPlotController(plotController);
 
-    DataTable dataTable = new DataTable();
-    dataTable.getScrollPane();
+    DataTable dataTable = DataTable.getInstance();
+    add(dataTable.getScrollPane());
 
 
     // configure JFrame window properties
