@@ -39,7 +39,7 @@ public class FilePathInput extends JTextField {
       public void focusGained(FocusEvent e) { chooseFile(); }
 
       @Override
-      public void focusLost(FocusEvent e) { enableFocus(); }
+      public void focusLost(FocusEvent e) { setFocusable(true); }
     });
   }
 
@@ -51,9 +51,5 @@ public class FilePathInput extends JTextField {
     } else {
       setFocusable(true);
     }
-  }
-
-  private void enableFocus() {
-    setFocusable(true);
   }
 }

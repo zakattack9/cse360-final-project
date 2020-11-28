@@ -32,19 +32,17 @@ public class AttendanceController implements ActionListener {
 
     if (!inputs.isEmpty()) {
       if (RosterDatabase.getInstance().isEmpty()) showNoRosterPopup();
-      else {
-        parseCSVFile(inputs.get(filePathInputLabel), inputs.get(dateInputLabel));
-        DataTable dataTable = DataTable.getInstance();
-        dataTable.updateTable();
-      }
+      else parseCSVFile(inputs.get(filePathInputLabel), inputs.get(dateInputLabel));
     }
   }
 
   private void parseCSVFile(String filePath, String date) {
     AttendanceParser attendanceParser = new AttendanceParser(filePath, date);
     boolean success = attendanceParser.runParser();
-    if (success) showSuccessPopup();
-    else showInvalidCSVPopup();
+    if (success) {
+      showSuccessPopup();
+      DataTable.getInstance().updateTable();
+    } else showInvalidCSVPopup();
   }
 
   private InputModal createInputModal() {
@@ -76,7 +74,7 @@ public class AttendanceController implements ActionListener {
   private String buildSuccessMessage() {
     AttendanceDatabase attendanceDatabase = AttendanceDatabase.getInstance();
     LinkedHashMap<String, Integer> additionalAsurites = attendanceDatabase.getAdditionalAsurites();
-    int numLoadedAsurites = attendanceDatabase.getData().size();
+    int numLoadedAsurites = attendanceDatabase.size();
     int numAdditionalAsurites = additionalAsurites.size();
 
     StringBuilder message = new StringBuilder("Data loaded for ");

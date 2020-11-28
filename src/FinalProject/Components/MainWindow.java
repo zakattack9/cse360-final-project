@@ -4,7 +4,6 @@ import FinalProject.Controllers.AttendanceController;
 import FinalProject.Controllers.PlotController;
 import FinalProject.Controllers.RosterController;
 import FinalProject.Controllers.SaveController;
-import FinalProject.Models.Utilities.DatabaseConverter;
 
 import javax.swing.*;
 
@@ -30,7 +29,6 @@ public class MainWindow extends JFrame {
 
     DataTable dataTable = DataTable.getInstance();
     add(dataTable.getScrollPane());
-
 
     // configure JFrame window properties
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
