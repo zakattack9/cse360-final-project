@@ -10,16 +10,16 @@ public class RosterDatabase extends Database {
   }
 
   public void addEntry(String id, String firstName, String lastName, String programPlan, String academicLevel, String asurite) {
-    if (this.get(asurite) == null) {
+    if (get(asurite) == null) {
       LinkedHashMap<String, String> map = new LinkedHashMap<>();
-      this.put(asurite, map);
+      put(asurite, map);
     }
-    this.get(asurite).put("ID", id);
-    this.get(asurite).put("First Name", firstName);
-    this.get(asurite).put("Last Name", lastName);
-    this.get(asurite).put("Program and Plan", programPlan);
-    this.get(asurite).put("Academic Level", academicLevel);
-    this.get(asurite).put("ASURITE", asurite);
+    get(asurite).put("ID", id);
+    get(asurite).put("First Name", firstName);
+    get(asurite).put("Last Name", lastName);
+    get(asurite).put("Program and Plan", programPlan);
+    get(asurite).put("Academic Level", academicLevel);
+    get(asurite).put("ASURITE", asurite);
 
     AttendanceDatabase.getInstance().addAsurite(asurite);
   }
@@ -31,5 +31,5 @@ public class RosterDatabase extends Database {
   }
 
   @Override
-  public void clearDatabase() { this.clear(); }
+  public void clearDatabase() { clear(); }
 }

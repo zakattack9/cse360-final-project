@@ -6,6 +6,7 @@ import FinalProject.Controllers.RosterController;
 import FinalProject.Controllers.SaveController;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class MainWindow extends JFrame {
   public static final int WINDOW_WIDTH = 1300;

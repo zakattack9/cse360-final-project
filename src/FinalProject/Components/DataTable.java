@@ -3,7 +3,7 @@ package FinalProject.Components;
 import FinalProject.Models.Utilities.DatabaseConverter;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 
 public class DataTable extends JTable {
   private static DataTable dataTable;
@@ -14,7 +14,12 @@ public class DataTable extends JTable {
   private DataTable(){
     databaseConverter = new DatabaseConverter();
     scrollPane = new JScrollPane(this);
-    setSize(MainWindow.WINDOW_WIDTH, MainWindow.WINDOW_HEIGHT);
+
+    Dimension dimension = new Dimension(MainWindow.WINDOW_WIDTH, MainWindow.WINDOW_HEIGHT);
+    setPreferredSize(dimension);
+    setPreferredScrollableViewportSize(dimension);
+    setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+    setFillsViewportHeight(true);
     setVisible(true);
   }
 
@@ -35,7 +40,6 @@ public class DataTable extends JTable {
   }
 
   public void updateTable(){
-    DefaultTableModel tableModel = databaseConverter.getCurrentTableModel();
-    setModel(tableModel);
+    setModel(databaseConverter.getCurrentTableModel());
   }
 }

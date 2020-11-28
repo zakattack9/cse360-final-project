@@ -35,8 +35,8 @@ public class RosterController implements ActionListener {
   private void parseCSVFile(String filePath) {
     RosterParser rosterParser = new RosterParser(filePath);
     boolean success = rosterParser.runParser();
-    if (!success) showInvalidCSVPopup();
-    else DataTable.getInstance().updateTable();
+    if (success) DataTable.getInstance().updateTable();
+    else showInvalidCSVPopup();
   }
 
   private InputModal createInputModal() {

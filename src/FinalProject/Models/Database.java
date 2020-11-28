@@ -3,8 +3,6 @@ package FinalProject.Models;
 import java.util.LinkedHashMap;
 
 public abstract class Database extends LinkedHashMap<String, LinkedHashMap<String, String>> {
-  public boolean isEmpty() { return this.size() == 0; }
-
   protected String parseToString(Integer integer) { return Integer.toString(integer); }
 
   protected Integer parseToInt(String intString) {

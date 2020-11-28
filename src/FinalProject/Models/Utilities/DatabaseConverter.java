@@ -11,9 +11,11 @@ public class DatabaseConverter {
   String[][] tableArr;
   Database database;
   DatabaseMerger databaseMerger;
+  DefaultTableModel defaultTableModel;
 
   public DatabaseConverter() {
     databaseMerger = new DatabaseMerger();
+    defaultTableModel = new DefaultTableModel();
   }
 
   // returns table model of passed in database
@@ -31,7 +33,6 @@ public class DatabaseConverter {
   private DefaultTableModel createTableModel() {
     if (!isDatabaseEmpty()) {
       initializeTableArr();
-      DefaultTableModel defaultTableModel = new DefaultTableModel();
       defaultTableModel.setDataVector(getArrayModel(), getDBKeys());
       return defaultTableModel;
     }
