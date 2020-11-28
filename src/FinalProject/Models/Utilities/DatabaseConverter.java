@@ -27,7 +27,7 @@ public class DatabaseConverter {
   }
 
   private DefaultTableModel createTableModel() {
-    if (database != null && !database.isEmpty()) {
+    if (!isDatabaseEmpty()) {
       initializeTableArr();
       DefaultTableModel defaultTableModel = new DefaultTableModel();
       defaultTableModel.setDataVector(getArrayModel(), getDBKeys());
@@ -57,6 +57,11 @@ public class DatabaseConverter {
   }
 
   private Map<String, String> getFirstNestedMap(LinkedHashMap<String, LinkedHashMap<String, String>> database) {
+    if (isDatabaseEmpty()) return null;
     return (Map<String, String>) database.values().toArray()[0];
+  }
+
+  private boolean isDatabaseEmpty() {
+    return database == null || database.isEmpty();
   }
 }
