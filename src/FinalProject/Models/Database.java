@@ -2,7 +2,7 @@ package FinalProject.Models;
 
 import java.util.LinkedHashMap;
 
-public abstract class Database ext{
+public abstract class Database {
   LinkedHashMap<String, LinkedHashMap<String, String>> data; // key is asurite
 
   protected Database() { data = new LinkedHashMap<>(); }
