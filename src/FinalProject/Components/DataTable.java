@@ -1,6 +1,7 @@
 package FinalProject.Components;
 
 import FinalProject.Models.AttendanceDatabase;
+import FinalProject.Models.Database;
 import FinalProject.Models.Utilities.DatabaseConverter;
 
 import javax.swing.*;
@@ -11,10 +12,7 @@ public class DataTable extends JTable {
     private static DataTable dataTable;
 
     private DatabaseConverter dataConvert;
-    private DefaultTableModel tableModel;
-    private JFrame frame;
     private JScrollPane scrollPane;
-    private DefaultTableModel currentData;
     private JScrollBar horizontalBar;
     private JScrollBar verticalBar;
 
@@ -27,6 +25,7 @@ public class DataTable extends JTable {
         if (dataTable == null) dataTable = new DataTable();
         return dataTable;
     }
+
     public JScrollPane getScrollPane() {
         scrollPane = new JScrollPane(this);
         horizontalBar = new JScrollBar(JScrollBar.HORIZONTAL);
@@ -35,11 +34,13 @@ public class DataTable extends JTable {
         scrollPane.add(horizontalBar);
         scrollPane.add(verticalBar);
         scrollPane.setVisible(true);
+        scrollPane.setViewportView(this);
         return scrollPane;
     }
+
     public void updateTable(){
-        tableModel = new DefaultTableModel();
-        DefaultTableModel tableModel = dataConvert.getCurrentTableModel();
+        DatabaseConverter databaseConverter = new DatabaseConverter();
+        DefaultTableModel tableModel = databaseConverter.getCurrentTableModel();
         setModel(tableModel);
     }
 }
