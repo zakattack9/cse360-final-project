@@ -17,30 +17,30 @@ public class DatabaseConverter {
   // returns table model of passed in database
   public DefaultTableModel getTableModel(LinkedHashMap<String, LinkedHashMap<String, String>> database) {
     this.database = database;
-    initializeTableArr();
     return createTableModel();
   }
 
   // returns table model of latest data from databases
   public DefaultTableModel getCurrentTableModel() {
     database = databaseMerger.getMergedDBs();
-    initializeTableArr();
     return createTableModel();
   }
 
-  private void initializeTableArr() {
+  private DefaultTableModel createTableModel() {
     if (database != null && !database.isEmpty()) {
-      Map<String, String> firstMap = getFirstNestedMap(database);
-      int rows = database.size();
-      int columns = firstMap.size();
-      tableArr = new String[rows][columns];
+      initializeTableArr();
+      DefaultTableModel defaultTableModel = new DefaultTableModel();
+      defaultTableModel.setDataVector(getArrayModel(), getDBKeys());
+      return defaultTableModel;
     }
+    return null;
   }
 
-  private DefaultTableModel createTableModel() {
-    DefaultTableModel defaultTableModel = new DefaultTableModel();
-    defaultTableModel.setDataVector(getArrayModel(), getDBKeys());
-    return defaultTableModel;
+  private void initializeTableArr() {
+    Map<String, String> firstMap = getFirstNestedMap(database);
+    int rows = database.size();
+    int columns = firstMap.size();
+    tableArr = new String[rows][columns];
   }
 
   private String[][] getArrayModel() {
