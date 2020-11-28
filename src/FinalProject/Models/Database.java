@@ -2,14 +2,8 @@ package FinalProject.Models;
 
 import java.util.LinkedHashMap;
 
-public abstract class Database ext{
-  LinkedHashMap<String, LinkedHashMap<String, String>> data; // key is asurite
-
-  protected Database() { data = new LinkedHashMap<>(); }
-
-  public LinkedHashMap<String, LinkedHashMap<String, String>> getData() { return data; }
-
-  public boolean isEmpty() { return data == null || data.size() == 0; }
+public abstract class Database extends LinkedHashMap<String, LinkedHashMap<String, String>> {
+  public boolean isEmpty() { return this.size() == 0; }
 
   protected String parseToString(Integer integer) { return Integer.toString(integer); }
 

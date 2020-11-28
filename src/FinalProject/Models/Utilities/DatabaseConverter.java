@@ -1,5 +1,7 @@
 package FinalProject.Models.Utilities;
 
+import FinalProject.Models.Database;
+
 import javax.swing.table.DefaultTableModel;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -7,7 +9,7 @@ import java.util.Map;
 // used to convert Database models to DefaultTableModel
 public class DatabaseConverter {
   String[][] tableArr;
-  LinkedHashMap<String, LinkedHashMap<String, String>> database;
+  Database database;
   DatabaseMerger databaseMerger;
 
   public DatabaseConverter() {
@@ -15,7 +17,7 @@ public class DatabaseConverter {
   }
 
   // returns table model of passed in database
-  public DefaultTableModel getTableModel(LinkedHashMap<String, LinkedHashMap<String, String>> database) {
+  public DefaultTableModel getTableModel(Database database) {
     this.database = database;
     return createTableModel();
   }
@@ -59,7 +61,7 @@ public class DatabaseConverter {
     return dataMap.values().toArray(new String[0]);
   }
 
-  private Map<String, String> getFirstNestedMap(LinkedHashMap<String, LinkedHashMap<String, String>> database) {
+  private Map<String, String> getFirstNestedMap(Database database) {
     if (isDatabaseEmpty()) return new LinkedHashMap<>();
     return (Map<String, String>) database.values().toArray()[0];
   }
