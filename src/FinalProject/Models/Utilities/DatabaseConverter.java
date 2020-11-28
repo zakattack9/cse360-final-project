@@ -44,24 +44,26 @@ public class DatabaseConverter {
   }
 
   private String[][] getArrayModel() {
+    if (isDatabaseEmpty()) return null;
     return database.values().stream().map(dataMap -> buildRow(dataMap)).toArray(String[][]::new);
   }
 
   private String[] getDBKeys() {
+    if (isDatabaseEmpty()) return null;
     Map<String, String> firstMap = getFirstNestedMap(database);
     return firstMap.keySet().toArray(String[]::new);
   }
 
   private String[] buildRow(LinkedHashMap<String, String> dataMap) {
+    if (isDatabaseEmpty(dataMap)) return null;
     return dataMap.values().toArray(new String[0]);
   }
 
   private Map<String, String> getFirstNestedMap(LinkedHashMap<String, LinkedHashMap<String, String>> database) {
-    if (isDatabaseEmpty()) return null;
+    if (isDatabaseEmpty()) return new LinkedHashMap<>();
     return (Map<String, String>) database.values().toArray()[0];
   }
 
-  private boolean isDatabaseEmpty() {
-    return database == null || database.isEmpty();
-  }
+  private boolean isDatabaseEmpty() { return database == null || database.isEmpty(); }
+  private boolean isDatabaseEmpty(Map<String, String> dataMap) { return dataMap == null || dataMap.isEmpty(); }
 }
