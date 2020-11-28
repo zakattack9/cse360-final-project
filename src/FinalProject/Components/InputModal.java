@@ -42,8 +42,6 @@ public class InputModal extends JDialog {
 
   public Map<String, String> showModal() {
     initModal();
-    pack();
-    setLocationRelativeTo(this.frame);
     setVisible(true);
     return generateValueMap();
   }
@@ -58,7 +56,8 @@ public class InputModal extends JDialog {
     layout.add(content, BorderLayout.NORTH);
     layout.add(buttons, BorderLayout.SOUTH);
     add(layout);
-    clickedCancel = false;
+    pack();
+    setLocationRelativeTo(this.frame);
   }
 
   // creates JPanel with all added inputs
@@ -99,6 +98,7 @@ public class InputModal extends JDialog {
   }
 
   private JButton createCancelBtn() {
+    clickedCancel = false;
     JButton cancelBtn = new JButton("Cancel");
     cancelBtn.addActionListener(e -> {
       clickedCancel = true;

@@ -27,17 +27,11 @@ public class MenuBar extends JMenuBar {
     add(about);
   }
 
-  public void addRosterController(ActionListener actionListener) {
-    loadARoster.addActionListener(actionListener);
-  }
+  public void addRosterController(ActionListener actionListener) { loadARoster.addActionListener(actionListener); }
 
   public void addAttendanceController(ActionListener actionListener) { addAttendance.addActionListener(actionListener); }
 
-  public void addSaveController(ActionListener actionListener) {
-    save.addActionListener(actionListener);
-  }
+  public void addSaveController(ActionListener actionListener) { save.addActionListener(actionListener); }
 
-  public void addPlotController(ActionListener actionListener) {
-    plotData.addActionListener(actionListener);
-  }
+  public void addPlotController(ActionListener actionListener) { plotData.addActionListener(actionListener); }
 }
