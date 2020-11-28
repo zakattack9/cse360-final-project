@@ -27,6 +27,12 @@ public class MainWindow extends JFrame {
     PlotController plotController = new PlotController();
     menuBar.addPlotController(plotController);
 
+    JFrame f = new JFrame();
+    RosterTableLoader rosterTableLoader = new RosterTableLoader(f);
+
+
+
+
     // configure JFrame window properties
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
