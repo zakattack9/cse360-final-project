@@ -35,7 +35,7 @@ public class DataTable extends JTable {
    * Retrieves the only instance of the DataTable class,
    * uses synchronized to prevent race conditions, enabling thread-safe instantiation.
    *
-   * @return DataTable if it has already been instantiated, otherwise instantiate its only instance.
+   * @return DataTable if it has already been instantiated, otherwise instantiate its only instance and return it.
    */
   public static synchronized DataTable getInstance(){
     if (dataTable == null) dataTable = new DataTable();
