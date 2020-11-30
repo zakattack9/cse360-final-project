@@ -89,7 +89,7 @@ public class DatabaseConverter {
    *
    * @return String[] including all the keys of the nested LinkedHashMap.
    */
-  private String[] getDBKeys() {
+  public String[] getDBKeys() {
     if (isDatabaseEmpty()) return null;
     Map<String, String> firstMap = getFirstNestedMap(database);
     return firstMap.keySet().toArray(String[]::new);
