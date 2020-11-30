@@ -1,6 +1,7 @@
 package FinalProject.Models;
 
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * A nested hashmap where the key is an Asurite and the value is another hashmap
@@ -95,6 +96,29 @@ public class AttendanceDatabase extends Database {
     dates.put(date, "0");
     forEach((asurite, dateMap) -> put(asurite, mergeDates(dateMap)));
   }
+
+  /**
+   * Returns all inputted dates in an array
+   *
+   * @return String[] including all the dates of the LinkedHashMap.
+   */
+  public String[] getDateKeys() {
+    return !dates.isEmpty() ? dates.keySet().toArray(String[]::new) : null;
+  }
+
+  public LinkedHashMap<String, String> getDate() {
+    return !dates.isEmpty() ? dates : null;
+  }
+
+  /**
+   * Returns all inputted dates in an array
+   *
+   * @return String[] including all the dates of the LinkedHashMap.
+   */
+  public String[] getTimeKeys() {
+    return !additionalAsurites.isEmpty() ? additionalAsurites.keySet().toArray(String[]::new) : null;
+  }
+
 
   /**
    * Used by updateDates() and merges the dates the from the dates map with the dates for a given Asurite in the attendance database;

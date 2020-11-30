@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 
+import FinalProject.Models.AttendanceDatabase;
 import FinalProject.Models.Utilities.DatabaseConverter;
 import FinalProject.Models.Utilities.DatabaseMerger;
 import org.jfree.chart.ChartFactory;
@@ -43,19 +44,11 @@ public class ScatterPlot extends JFrame
     {
         XYSeriesCollection dataset = new XYSeriesCollection();
 
+        String[] attendance = AttendanceDatabase.getInstance().getTimeKeys();
+        String[] dateKeys = AttendanceDatabase.getInstance().getDateKeys();
+        LinkedHashMap<String, String> dates = AttendanceDatabase.getInstance().getDate();
+        LinkedHashMap<String, Integer> times = AttendanceDatabase.getInstance().getAdditionalAsurites();
 
-        //add x then y datasets
-        DatabaseMerger databaseMerger = new DatabaseMerger();
-        LinkedHashMap<String, LinkedHashMap<String, String>> mergedDBs = databaseMerger.getMergedDBs();
-        DatabaseConverter DBConverter = new DatabaseConverter();
-        //String[] yes = DBConverter.getDBKeys();
-        mergedDBs.values().forEach((map) -> {
-
-            //map.forEach((key,value) -> System.out.println(key + ": " + value));
-
-            //System.out.println("Dates: " + map.get(yes[0]));
-            //System.out.println(dates.getDBKeys());
-        });
         int hundred = 0;
         int ninety = 0;
         int eighty = 0;
@@ -66,50 +59,51 @@ public class ScatterPlot extends JFrame
         int thirty = 0;
         int twenty = 0;
         int ten = 0;
-        int zero = 0;
 
-        for(int i = 0; i < dates.length - 1; i++)
+        for(int i = 0; i < dateKeys.length; i++)
         {
-            for(int j = 0; j < array.length - 1; j++)
+            for(int j = 0; j < times.size(); j++)
             {
-                XYSeries series = new XYSeries(DateArray[i]);
-                if(array[j] >= 75)
+                System.out.println(dateKeys[i]);
+                System.out.println(times.get(attendance[j]));
+                XYSeries series = new XYSeries(dates.get(dateKeys[i]));
+                if(times.get(attendance[j]) >= 75)
                 {
                     hundred++;
                 }
-                else if(array[j] < 75 && array[j] >= 67.5)
+                else if(times.get(attendance[j]) < 75 && times.get(attendance[j]) >= 67.5)
                 {
                     ninety++;
                 }
-                else if(array[j] < 67.5 && array[j] >= 60)
+                else if(times.get(attendance[j]) < 67.5 && times.get(attendance[j]) >= 60)
                 {
                     eighty++;
                 }
-                else if(array[j] < 60 && array[j] >= 52.5)
+                else if(times.get(attendance[j]) < 60 && times.get(attendance[j]) >= 52.5)
                 {
                     seventy++;
                 }
-                else if(array[j] < 52.5 && array[j] >= 45)
+                else if(times.get(attendance[j]) < 52.5 && times.get(attendance[j]) >= 45)
                 {
                     sixty++;
                 }
-                else if(array[j] < 45 && array[j] >= 37.5)
+                else if(times.get(attendance[j]) < 45 && times.get(attendance[j]) >= 37.5)
                 {
                     fifty++;
                 }
-                else if(array[j] < 37.5 && array[j] >= 30)
+                else if(times.get(attendance[j]) < 37.5 && times.get(attendance[j]) >= 30)
                 {
                     forty++;
                 }
-                else if(array[j] < 30 && array[j] >= 22.5)
+                else if(times.get(attendance[j]) < 30 && times.get(attendance[j]) >= 22.5)
                 {
                     thirty++;
                 }
-                else if(array[j] < 22.5 && array[j] >= 15)
+                else if(times.get(attendance[j]) < 22.5 && times.get(attendance[j]) >= 15)
                 {
                     twenty++;
                 }
-                else if(array[j] < 15 && array[j] >= 7.5)
+                else if(times.get(attendance[j]) < 15 && times.get(attendance[j]) >= 7.5)
                 {
                     ten++;
                 }
@@ -130,9 +124,8 @@ public class ScatterPlot extends JFrame
 
             }
         }
-        //return dataset;
+        return dataset;
 
-        return null;
 
     }
 
