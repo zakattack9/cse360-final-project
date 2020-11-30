@@ -11,6 +11,7 @@ public class MenuBar extends JMenuBar {
   JMenuItem addAttendance;
   JMenuItem save;
   JMenuItem plotData;
+  AboutWindow aboutWindow;
 
   /**
    * Adds File and About menu to the JMenuBar with their respective sub menus.
@@ -28,6 +29,10 @@ public class MenuBar extends JMenuBar {
     file.add(addAttendance);
     file.add(save);
     file.add(plotData);
+
+    aboutWindow = new AboutWindow();
+
+    about.add(aboutWindow);
 
     add(file);
     add(about);
@@ -52,4 +57,11 @@ public class MenuBar extends JMenuBar {
    * Adds a controller that is called upon click to the "Plot Data" menu option.
    */
   public void addPlotController(ActionListener actionListener) { plotData.addActionListener(actionListener); }
+
+  /**
+   * Adds a controller that is called upon click to the "About" option.
+   */
+  public void addAboutController(ActionListener actionListener){
+    aboutWindow.addActionListener(actionListener);
+  }
 }
