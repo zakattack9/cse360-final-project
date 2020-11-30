@@ -7,10 +7,18 @@ import FinalProject.Controllers.SaveController;
 
 import javax.swing.*;
 
+/**
+ * Topmost level of the application containing the menu bar, controllers, data table, and
+ * configuration of the window's properties.
+ */
 public class MainWindow extends JFrame {
   public static final int WINDOW_WIDTH = 1300;
   public static final int WINDOW_HEIGHT = 800;
 
+  /**
+   * Constructor that instantiates the menu bar and adds the controllers to it;
+   * also adds the data table to the main window.
+   */
   public MainWindow() {
     MenuBar menuBar = new MenuBar();
     setJMenuBar(menuBar);
@@ -27,7 +35,9 @@ public class MainWindow extends JFrame {
     PlotController plotController = new PlotController();
     menuBar.addPlotController(plotController);
 
-    // configure JFrame window properties
+    DataTable dataTable = DataTable.getInstance();
+    add(dataTable.getScrollPane());
+
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
     setLocationRelativeTo(null);

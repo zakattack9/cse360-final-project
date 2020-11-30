@@ -1,31 +1,23 @@
 package FinalProject.Models.Utilities;
 
+import FinalProject.Models.Database;
 import FinalProject.Models.AttendanceDatabase;
 import FinalProject.Models.RosterDatabase;
 
-import java.util.LinkedHashMap;
-
-// merges AttendanceDatabase and RosterDatabase into one object
+/**
+ * Used to merge the roster and attendance databases into one Database.
+ */
 public class DatabaseMerger {
-  LinkedHashMap<String, LinkedHashMap<String, String>> mergedDatabase;
-  AttendanceDatabase attendanceDatabase;
-  RosterDatabase rosterDatabase;
-
-  public DatabaseMerger() {
-    attendanceDatabase = AttendanceDatabase.getInstance();
-    rosterDatabase = RosterDatabase.getInstance();
-    mergedDatabase = new LinkedHashMap<>();
-  }
-
-  public LinkedHashMap<String, LinkedHashMap<String, String>> getMergedDBs() {
-    mergeDatabases();
-    return mergedDatabase;
-  }
-
-  private void mergeDatabases() {
-    LinkedHashMap<String, LinkedHashMap<String, String>> attendanceData = attendanceDatabase.getData();
-    LinkedHashMap<String, LinkedHashMap<String, String>> rosterData = rosterDatabase.getData();
+  /**
+   * Puts all keys from the attendance database into a cloned version of the roster database;
+   * the key order of both the roster and attendance databases are maintained.
+   *
+   * @return Database that includes key value pairs from both the roster and attendance database.
+   */
+  public Database getMergedDBs() {
+    Database rosterData = (Database) RosterDatabase.getInstance().clone();
+    Database attendanceData = AttendanceDatabase.getInstance();
     rosterData.forEach((asurite, dataMap) -> dataMap.putAll(attendanceData.get(asurite)));
-    mergedDatabase = rosterData;
+    return rosterData;
   }
 }
