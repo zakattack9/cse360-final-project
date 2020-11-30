@@ -22,6 +22,7 @@ public class DatabaseConverter {
   public DatabaseConverter() {
     databaseMerger = new DatabaseMerger();
     defaultTableModel = new DefaultTableModel();
+    database = databaseMerger.getMergedDBs();
   }
 
   /**
@@ -43,6 +44,30 @@ public class DatabaseConverter {
   public DefaultTableModel getCurrentTableModel() {
     database = databaseMerger.getMergedDBs();
     return createTableModel();
+  }
+
+  /**
+   * Loops through the values (LinkedHashMap<String, String>) of the internal database and converts them to a 2D array
+   * where each row includes data from one nested LinkedHashMap in the database and
+   * each value in the row is a value from the nested LinkedHashMap.
+   *
+   * @return String[][] including the values of database in a 2D array representation.
+   */
+  public String[][] getArrayModel() {
+    if (isDatabaseEmpty()) return null;
+    return database.values().stream().map(dataMap ->
+        dataMap.values().toArray(new String[0])).toArray(String[][]::new);
+  }
+
+  /**
+   * Gets all the keys of the nested LinkedHashMap which can be used as the column header names of the DefaultTableModel.
+   *
+   * @return String[] including all the keys of the nested LinkedHashMap.
+   */
+  public String[] getDBKeys() {
+    if (isDatabaseEmpty()) return null;
+    Map<String, String> firstMap = getFirstNestedMap(database);
+    return firstMap.keySet().toArray(String[]::new);
   }
 
   /**
@@ -69,30 +94,6 @@ public class DatabaseConverter {
     int rows = database.size();
     int columns = firstMap.size();
     tableArr = new String[rows][columns];
-  }
-
-  /**
-   * Loops through the values (LinkedHashMap<String, String>) of the internal database and converts them to a 2D array
-   * where each row includes data from one nested LinkedHashMap in the database and
-   * each value in the row is a value from the nested LinkedHashMap.
-   *
-   * @return String[][] including the values of database in a 2D array representation.
-   */
-  private String[][] getArrayModel() {
-    if (isDatabaseEmpty()) return null;
-    return database.values().stream().map(dataMap ->
-      dataMap.values().toArray(new String[0])).toArray(String[][]::new);
-  }
-
-  /**
-   * Gets all the keys of the nested LinkedHashMap which can be used as the column header names of the DefaultTableModel.
-   *
-   * @return String[] including all the keys of the nested LinkedHashMap.
-   */
-  private String[] getDBKeys() {
-    if (isDatabaseEmpty()) return null;
-    Map<String, String> firstMap = getFirstNestedMap(database);
-    return firstMap.keySet().toArray(String[]::new);
   }
 
   /**
