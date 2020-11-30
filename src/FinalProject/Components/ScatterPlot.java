@@ -48,12 +48,12 @@ public class ScatterPlot extends JFrame
         DatabaseMerger databaseMerger = new DatabaseMerger();
         LinkedHashMap<String, LinkedHashMap<String, String>> mergedDBs = databaseMerger.getMergedDBs();
         DatabaseConverter DBConverter = new DatabaseConverter();
-        String[] yes = DBConverter.getDBKeys();
+        //String[] yes = DBConverter.getDBKeys();
         mergedDBs.values().forEach((map) -> {
 
             //map.forEach((key,value) -> System.out.println(key + ": " + value));
 
-            System.out.println("Dates: " + map.get(yes[0]));
+            //System.out.println("Dates: " + map.get(yes[0]));
             //System.out.println(dates.getDBKeys());
         });
         int hundred = 0;
