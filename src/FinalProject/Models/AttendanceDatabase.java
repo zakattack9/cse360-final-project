@@ -102,22 +102,11 @@ public class AttendanceDatabase extends Database {
    *
    * @return String[] including all the dates of the LinkedHashMap.
    */
-  public String[] getDateKeys() {
+  public String[] getDates() {
     return !dates.isEmpty() ? dates.keySet().toArray(String[]::new) : null;
   }
 
-  public LinkedHashMap<String, String> getDate() {
-    return !dates.isEmpty() ? dates : null;
-  }
 
-  /**
-   * Returns all inputted dates in an array
-   *
-   * @return String[] including all the dates of the LinkedHashMap.
-   */
-  public String[] getTimeKeys() {
-    return !additionalAsurites.isEmpty() ? additionalAsurites.keySet().toArray(String[]::new) : null;
-  }
 
 
   /**

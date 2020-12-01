@@ -35,6 +35,7 @@ public class MainWindow extends JFrame {
     PlotController plotController = new PlotController();
     menuBar.addPlotController(plotController);
 
+
     DataTable dataTable = DataTable.getInstance();
     add(dataTable.getScrollPane());
 

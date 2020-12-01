@@ -17,6 +17,9 @@ import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
+import java.io.*;
+import java.util.*;
+
 
 public class ScatterPlot extends JFrame
 {
@@ -27,6 +30,21 @@ public class ScatterPlot extends JFrame
         super(title);
 
 
+//        XYDataset dataset = createDataset();
+//
+//        JFreeChart chart = ChartFactory.createScatterPlot("Percentage of Time Students are in Class",
+//                "Percentage", "Frequency", dataset);
+//
+//        XYPlot plot = (XYPlot) chart.getPlot();
+//        plot.setBackgroundPaint(new Color(255, 228, 196));
+//
+//        ChartPanel panel = new ChartPanel(chart);
+//        setContentPane(panel);
+
+    }
+
+    public JFreeChart buildPlot()
+    {
         XYDataset dataset = createDataset();
 
         JFreeChart chart = ChartFactory.createScatterPlot("Percentage of Time Students are in Class",
@@ -38,16 +56,27 @@ public class ScatterPlot extends JFrame
         ChartPanel panel = new ChartPanel(chart);
         setContentPane(panel);
 
+        return chart;
     }
 
-    public XYDataset createDataset()
+    public void displayPlot(ScatterPlot plot)
+    {
+
+
+    }
+
+
+    private XYDataset createDataset()
     {
         XYSeriesCollection dataset = new XYSeriesCollection();
 
-        String[] attendance = AttendanceDatabase.getInstance().getTimeKeys();
-        String[] dateKeys = AttendanceDatabase.getInstance().getDateKeys();
-        LinkedHashMap<String, String> dates = AttendanceDatabase.getInstance().getDate();
-        LinkedHashMap<String, Integer> times = AttendanceDatabase.getInstance().getAdditionalAsurites();
+
+        String[] dates = AttendanceDatabase.getInstance().getDates();
+        ArrayList<Integer> times = new ArrayList<Integer>();
+
+
+        AttendanceDatabase attendanceDatabase = AttendanceDatabase.getInstance();
+        String[] time = attendanceDatabase.getDates();
 
         int hundred = 0;
         int ninety = 0;
@@ -59,74 +88,106 @@ public class ScatterPlot extends JFrame
         int thirty = 0;
         int twenty = 0;
         int ten = 0;
+        int zero = 0;
 
-        for(int i = 0; i < dateKeys.length; i++)
+        //for(int i = 0; i < dates.length; i++)
+        for (String date : time)
         {
-            for(int j = 0; j < times.size(); j++)
+            //attendanceDatabase.values().forEach(map -> {
+                //System.out.println(map.get(date))); // current asurite's total time attended for date (do something with this)
+            for (LinkedHashMap<String, String> map : attendanceDatabase.values())
             {
-                System.out.println(dateKeys[i]);
-                System.out.println(times.get(attendance[j]));
-                XYSeries series = new XYSeries(dates.get(dateKeys[i]));
-                if(times.get(attendance[j]) >= 75)
+                if(parseToInt(map.get(date)) >= 75)
                 {
                     hundred++;
                 }
-                else if(times.get(attendance[j]) < 75 && times.get(attendance[j]) >= 67.5)
+                else if(parseToInt(map.get(date)) < 75 && parseToInt(map.get(date)) >= 67.5)
                 {
                     ninety++;
                 }
-                else if(times.get(attendance[j]) < 67.5 && times.get(attendance[j]) >= 60)
+                else if(parseToInt(map.get(date)) < 67.5 && parseToInt(map.get(date)) >= 60)
                 {
                     eighty++;
                 }
-                else if(times.get(attendance[j]) < 60 && times.get(attendance[j]) >= 52.5)
+                else if(parseToInt(map.get(date)) < 60 && parseToInt(map.get(date)) >= 52.5)
                 {
                     seventy++;
                 }
-                else if(times.get(attendance[j]) < 52.5 && times.get(attendance[j]) >= 45)
+                else if(parseToInt(map.get(date)) < 52.5 && parseToInt(map.get(date)) >= 45)
                 {
                     sixty++;
                 }
-                else if(times.get(attendance[j]) < 45 && times.get(attendance[j]) >= 37.5)
+                else if(parseToInt(map.get(date)) < 45 && parseToInt(map.get(date)) >= 37.5)
                 {
                     fifty++;
                 }
-                else if(times.get(attendance[j]) < 37.5 && times.get(attendance[j]) >= 30)
+                else if(parseToInt(map.get(date)) < 37.5 && parseToInt(map.get(date)) >= 30)
                 {
                     forty++;
                 }
-                else if(times.get(attendance[j]) < 30 && times.get(attendance[j]) >= 22.5)
+                else if(parseToInt(map.get(date)) < 30 && parseToInt(map.get(date)) >= 22.5)
                 {
                     thirty++;
                 }
-                else if(times.get(attendance[j]) < 22.5 && times.get(attendance[j]) >= 15)
+                else if(parseToInt(map.get(date)) < 22.5 && parseToInt(map.get(date)) >= 15)
                 {
                     twenty++;
                 }
-                else if(times.get(attendance[j]) < 15 && times.get(attendance[j]) >= 7.5)
+                else if(parseToInt(map.get(date)) < 15 && parseToInt(map.get(date)) >= 7.5)
                 {
                     ten++;
                 }
-                else
+                else if(parseToInt(map.get(date)) < 7.5)
                 {
+                    zero++;
+                }
+                else {
                     System.out.println("invaid attendance");
                 }
-                series.add(100, hundred);
-                series.add(90, ninety);
-                series.add(80, eighty);
-                series.add(70, seventy);
-                series.add(60, sixty);
-                series.add(50, fifty);
-                series.add(40, forty);
-                series.add(30, thirty);
-                series.add(20, twenty);
-                series.add(10, ten);
 
             }
+            XYSeries series = new XYSeries(date);
+            series.add(100, hundred);
+            series.add(90, ninety);
+            series.add(80, eighty);
+            series.add(70, seventy);
+            series.add(60, sixty);
+            series.add(50, fifty);
+            series.add(40, forty);
+            series.add(30, thirty);
+            series.add(20, twenty);
+            series.add(10, ten);
+            series.add(0, zero);
+            hundred = 0;
+            ninety = 0;
+            eighty = 0;
+            seventy = 0;
+            sixty = 0;
+            fifty = 0;
+            forty = 0;
+            thirty = 0;
+            twenty = 0;
+            ten = 0;
+            zero = 0;
+
         }
         return dataset;
 
 
     }
 
+    /**
+     * Converts a string type to an integer type.
+     *
+     * @param intString to be converted to an Integer.
+     * @return Integer of converted string where 0 is returned if the string is not convertible.
+     */
+    private Integer parseToInt(String intString) {
+        if (intString == null) return 0;
+        try { return Integer.parseInt(intString.trim()); }
+        catch (NumberFormatException e) { return 0; }
+    }
+
 }
+
+
