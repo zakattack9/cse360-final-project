@@ -32,7 +32,7 @@ public class MainWindow extends JFrame {
     SaveController saveController = new SaveController();
     menuBar.addSaveController(saveController);
 
-    PlotController plotController = new PlotController();
+    PlotController plotController = new PlotController(this);
     menuBar.addPlotController(plotController);
 
     AboutWindow aboutWindow = new AboutWindow(this);
