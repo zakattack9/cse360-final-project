@@ -20,17 +20,11 @@ public class AboutWindow extends JOptionPane implements MenuListener {
   }
 
   @Override
-  public void menuSelected(MenuEvent e) {
-    showMessageDialog(frame, teamInfo);
-  }
+  public void menuSelected(MenuEvent e) { showMessageDialog(frame, teamInfo); }
 
   @Override
-  public void menuDeselected(MenuEvent e) {
-//    System.out.println("menuDeselected");
-  }
+  public void menuDeselected(MenuEvent e) { }
 
   @Override
-  public void menuCanceled(MenuEvent e) {
-//    System.out.println("menuCanceled");
-  }
+  public void menuCanceled(MenuEvent e) { }
 }

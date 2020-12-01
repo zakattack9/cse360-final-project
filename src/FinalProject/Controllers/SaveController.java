@@ -1,9 +1,9 @@
 package FinalProject.Controllers;
 
-import FinalProject.Models.Utilities.SaveFunctionality;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import FinalProject.Models.Utilities.SaveFunctionality;
 
 /**
  * Handles actions and functionality when clicking "Save".
