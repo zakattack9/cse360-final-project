@@ -106,9 +106,6 @@ public class AttendanceDatabase extends Database {
     return !dates.isEmpty() ? dates.keySet().toArray(String[]::new) : null;
   }
 
-
-
-
   /**
    * Used by updateDates() and merges the dates the from the dates map with the dates for a given Asurite in the attendance database;
    * because the dates map maintains the order of which new dates were inputted, when merged with dates for an Asurite,

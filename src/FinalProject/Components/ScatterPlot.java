@@ -2,13 +2,8 @@ package FinalProject.Components;
 
 import java.awt.Color;
 import java.util.LinkedHashMap;
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
-import javax.swing.WindowConstants;
 
 import FinalProject.Models.AttendanceDatabase;
-import FinalProject.Models.Utilities.DatabaseConverter;
-import FinalProject.Models.Utilities.DatabaseMerger;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -17,27 +12,21 @@ import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
-import java.io.*;
-import java.util.*;
-
-
 public class ScatterPlot {
+  JFreeChart chart;
 
   public ScatterPlot() {
-
-  }
-
-  public ChartPanel getPlot() {
     XYDataset dataset = createDataset();
 
-    JFreeChart chart = ChartFactory.createScatterPlot("Percentage of Time Students are in Class", "Percentage", "Count", dataset);
+    chart = ChartFactory.createScatterPlot("Percentage of Time Students are in Class", "Percentage", "Count", dataset);
 
     XYPlot plot = (XYPlot) chart.getPlot();
     plot.setBackgroundPaint(new Color(255, 228, 196));
-
-    return new ChartPanel(chart);
   }
 
+  public ChartPanel getPlot() {
+    return new ChartPanel(chart);
+  }
 
   private XYDataset createDataset() {
     XYSeriesCollection dataset = new XYSeriesCollection();
@@ -132,7 +121,4 @@ public class ScatterPlot {
       return 0;
     }
   }
-
 }
-
-
