@@ -3,6 +3,7 @@ import FinalProject.Models.Database;
 import javax.swing.table.DefaultTableModel;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
 /**
  * Used to convert Database models to DefaultTableModels;
  * it is important to note that a Database used a nested LinkedHashMap data structure.
@@ -12,6 +13,7 @@ public class DatabaseConverter {
   Database database;
   DatabaseMerger databaseMerger;
   DefaultTableModel defaultTableModel;
+
   /**
    * Constructor that instantiates a DatabaseMerger and DefaultTableModel needed by other methods.
    */
@@ -20,6 +22,7 @@ public class DatabaseConverter {
     defaultTableModel = new DefaultTableModel();
     database = databaseMerger.getMergedDBs();
   }
+
   /**
    * Creates a DefaultTableModel based off the passed in database.
    *
@@ -30,6 +33,7 @@ public class DatabaseConverter {
     this.database = database;
     return createTableModel();
   }
+
   /**
    * Creates a DefaultTableModel based off the current data in both the roster and attendance databases.
    *
@@ -39,6 +43,7 @@ public class DatabaseConverter {
     database = databaseMerger.getMergedDBs();
     return createTableModel();
   }
+
   /**
    * Loops through the values (LinkedHashMap<String, String>) of the internal database and converts them to a 2D array
    * where each row includes data from one nested LinkedHashMap in the database and
@@ -51,6 +56,7 @@ public class DatabaseConverter {
     return database.values().stream().map(dataMap ->
             dataMap.values().toArray(new String[0])).toArray(String[][]::new);
   }
+
   /**
    * Gets all the keys of the nested LinkedHashMap which can be used as the column header names of the DefaultTableModel.
    *
@@ -61,6 +67,7 @@ public class DatabaseConverter {
     Map<String, String> firstMap = getFirstNestedMap(database);
     return firstMap.keySet().toArray(String[]::new);
   }
+
   /**
    * If the internal database used in this class is not empty,
    * a new 2D string array is created which is later converted to a DefaultTableModel.
@@ -76,6 +83,7 @@ public class DatabaseConverter {
     }
     return null;
   }
+
   /**
    * Allocates memory for a 2D string array that fits the size of the current internal database.
    */
@@ -85,6 +93,7 @@ public class DatabaseConverter {
     int columns = firstMap.size();
     tableArr = new String[rows][columns];
   }
+
   /**
    * Gets the first nested map in a passed in database that can be used to retrieve various values from.
    *
@@ -95,6 +104,7 @@ public class DatabaseConverter {
     if (isDatabaseEmpty()) return new LinkedHashMap<>();
     return (Map<String, String>) database.values().toArray()[0];
   }
+
   /**
    * Checks whether the current internal database is null or empty.
    *
