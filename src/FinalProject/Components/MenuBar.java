@@ -1,12 +1,16 @@
 package FinalProject.Components;
 
 import javax.swing.*;
+import javax.swing.event.MenuListener;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
  * Menu bar located at the top of the application.
  */
 public class MenuBar extends JMenuBar {
+  JMenu file;
+  JMenu about;
   JMenuItem loadARoster;
   JMenuItem addAttendance;
   JMenuItem save;
@@ -16,8 +20,8 @@ public class MenuBar extends JMenuBar {
    * Adds File and About menu to the JMenuBar with their respective sub menus.
    */
   public MenuBar() {
-    JMenu file = new JMenu("File");
-    JMenu about = new JMenu("About");
+    file = new JMenu("File");
+    about = new JMenu("About");
 
     loadARoster = new JMenuItem("Load a Roster");
     addAttendance = new JMenuItem("Add Attendance");
@@ -52,4 +56,9 @@ public class MenuBar extends JMenuBar {
    * Adds a controller that is called upon click to the "Plot Data" menu option.
    */
   public void addPlotController(ActionListener actionListener) { plotData.addActionListener(actionListener); }
+
+  /**
+   * Adds a menu listener that is called upon click to the "About" option.
+   */
+  public void addAboutMenuListener(MenuListener menuListener){ about.addMenuListener(menuListener); }
 }
