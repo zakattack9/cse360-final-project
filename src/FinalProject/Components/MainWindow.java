@@ -39,7 +39,6 @@ public class MainWindow extends JFrame {
     add(dataTable.getScrollPane());
     dataTable.setDefaultEditor(Object.class,null);
 
-
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
     setLocationRelativeTo(null);
