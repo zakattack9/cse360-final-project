@@ -20,13 +20,24 @@ import org.jfree.data.xy.XYSeriesCollection;
 import java.io.*;
 import java.util.*;
 
-
+/**
+ * Class ScatterPlot creates a scatter plot that displays
+ * the attendance of students
+ */
 public class ScatterPlot {
 
+  /**
+   * Constructor
+   */
   public ScatterPlot() {
 
   }
 
+  /**
+   *
+   * @return returns a panel with the
+   * scatter plot
+   */
   public ChartPanel getPlot() {
     XYDataset dataset = createDataset();
 
@@ -38,7 +49,13 @@ public class ScatterPlot {
     return new ChartPanel(chart);
   }
 
-
+  /**
+   * createDataset gets all the inputted dates and attendance times
+   * of the students and adds them to the dataset
+   *
+   * @param dataset holds all the points plotted
+   * @return
+   */
   private XYDataset createDataset() {
     XYSeriesCollection dataset = new XYSeriesCollection();
 
