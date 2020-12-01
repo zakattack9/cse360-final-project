@@ -1,6 +1,7 @@
 package FinalProject.Components;
 
 import javax.swing.*;
+import javax.swing.event.MenuListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -8,20 +9,19 @@ import java.awt.event.ActionListener;
  * Menu bar located at the top of the application.
  */
 public class MenuBar extends JMenuBar {
+  JMenu file;
+  JMenu about;
   JMenuItem loadARoster;
   JMenuItem addAttendance;
   JMenuItem save;
   JMenuItem plotData;
-  //JMenuItem aboutTeam;
-  AboutWindow aboutWindow;
-
 
   /**
    * Adds File and About menu to the JMenuBar with their respective sub menus.
    */
   public MenuBar() {
-    JMenu file = new JMenu("File");
-    JMenu about = new JMenu("About");
+    file = new JMenu("File");
+    about = new JMenu("About");
 
     loadARoster = new JMenuItem("Load a Roster");
     addAttendance = new JMenuItem("Add Attendance");
@@ -32,27 +32,6 @@ public class MenuBar extends JMenuBar {
     file.add(addAttendance);
     file.add(save);
     file.add(plotData);
-
-    aboutWindow = new AboutWindow();
-    //about.add(aboutWindow);
-
-//    about.addActionListener(new ActionListener() {
-//      @Override
-//      public void actionPerformed(ActionEvent e) {
-//        aboutWindow = new AboutWindow();
-//        JOptionPane.showMessageDialog(null,"testing");
-////        about.add(aboutWindow);
-////        add(aboutWindow);
-//      }
-//    });
-//    aboutWindow = new AboutWindow();
-//    about.add(aboutWindow);
-//    add(aboutWindow);
-
-    //AboutWindow testing = aboutWindow.displayTeamInformation();
-
-    //add(testing);
-    //aboutWindow.add(aboutWindow);
 
     add(file);
     add(about);
@@ -79,7 +58,7 @@ public class MenuBar extends JMenuBar {
   public void addPlotController(ActionListener actionListener) { plotData.addActionListener(actionListener); }
 
   /**
-   * Adds a controller that is called upon click to the "About" option.
+   * Adds a menu listener that is called upon click to the "About" option.
    */
-  public void addAboutController(ActionListener actionListener){ aboutWindow.addActionListener(actionListener); }
+  public void addAboutMenuListener(MenuListener menuListener){ about.addMenuListener(menuListener); }
 }
