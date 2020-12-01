@@ -32,11 +32,15 @@ public class MainWindow extends JFrame {
     SaveController saveController = new SaveController();
     menuBar.addSaveController(saveController);
 
-    PlotController plotController = new PlotController();
+    PlotController plotController = new PlotController(this);
     menuBar.addPlotController(plotController);
+
+    AboutWindow aboutWindow = new AboutWindow(this);
+    menuBar.addAboutMenuListener(aboutWindow);
 
     DataTable dataTable = DataTable.getInstance();
     add(dataTable.getScrollPane());
+    dataTable.setDefaultEditor(Object.class,null);
 
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
