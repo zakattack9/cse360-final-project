@@ -12,9 +12,16 @@ import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
+/**
+ * Class ScatterPlot creates a scatter plot that displays
+ * the attendance of students
+ */
 public class ScatterPlot {
   JFreeChart chart;
 
+  /**
+   * Constructor that creates the dataset and initializes the scatter plot
+   */
   public ScatterPlot() {
     XYDataset dataset = createDataset();
 
@@ -24,10 +31,21 @@ public class ScatterPlot {
     plot.setBackgroundPaint(new Color(255, 228, 196));
   }
 
+  /**
+   * Gets a scatter plot with all the data points from the database
+   *
+   * @return returns a panel with the scatter plot
+   */
   public ChartPanel getPlot() {
     return new ChartPanel(chart);
   }
 
+  /**
+   * Gets all the inputted dates and attendance times
+   * of the students and adds them to the dataset
+   *
+   * @return XYDataset with data plots from database
+   */
   private XYDataset createDataset() {
     XYSeriesCollection dataset = new XYSeriesCollection();
 
