@@ -14,7 +14,6 @@ public class SaveController implements ActionListener {
 
   @Override
   public void actionPerformed(ActionEvent e) {
-    ScatterPlot plot = new ScatterPlot("Scatter Plot of Attendance");
 
   }
 }
