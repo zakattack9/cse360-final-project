@@ -64,10 +64,7 @@ public class ScatterPlot {
     int ten = 0;
     int zero = 0;
 
-    //for(int i = 0; i < dates.length; i++)
     for (String date : dates) {
-      //attendanceDatabase.values().forEach(map -> {
-      //System.out.println(map.get(date))); // current asurite's total time attended for date (do something with this)
       for (LinkedHashMap<String, String> map : attendanceDatabase.values()) {
         if (parseToInt(map.get(date)) >= 75) {
           hundred++;
@@ -94,8 +91,8 @@ public class ScatterPlot {
         } else {
           System.out.println("invaid attendance");
         }
-
       }
+
       XYSeries series = new XYSeries(date);
       series.add(100, hundred);
       series.add(90, ninety);
@@ -122,7 +119,6 @@ public class ScatterPlot {
       dataset.addSeries(series);
     }
     return dataset;
-
   }
 
   /**
