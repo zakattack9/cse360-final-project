@@ -136,3 +136,18 @@ public class ScatterPlot {
     }
   }
 }
+
+
+/*
+CONVERT FROM JS TO JAVA TO REPLACE createDatabase()
+const X_SCALE = 5;
+const MAX_X = 75;
+
+let hashmap = {};
+
+const convertToX = (num) => {
+num -= num > MAX_X ? num % MAX_X : 0;
+let scaledNum = Math.floor(num / X_SCALE);
+hashmap[scaledNum] = !hashmap[scaledNum] ? 1 : hashmap[scaledNum] + 1;
+}
+*/
